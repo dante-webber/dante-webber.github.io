@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited! | Megan & Danté are Getting Married</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --terracotta: #b2774c; --tan:#c6a086; --greige:#a6a18f; --olive:#645c41; --linen:#dfddd8; --white:#ffffff;
+        }
+        
+        /* Password Protection */
+        #password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--olive) 0%, var(--terracotta) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .password-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .password-container h1 {
+            color: var(--olive);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .password-container p {
+            color: #666;
+            margin-bottom: 30px;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--greige);
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+        }
+        
+        .password-btn {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .password-btn:hover {
+            background: #9a643e;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        #main-content {
+            display: none;
+        }
+        /* --- General & Body Styles --- */
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8F5F2; /* Soft, warm off-white */
+            color: #333333; line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #2c3e50; /* Dark slate blue */
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 6px;
+            color: var(--olive);
+        }
+        
+        .rule {
+            width: 80px;
+            height: 2px;
+            background: var(--terracotta);
+            opacity: 0.6;
+            margin: 0 auto 24px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* --- Header / Hero Section --- */
+        .hero {
+            background-color: var(--greige);
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .monogram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--terracotta);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--terracotta);
+            margin: 0 auto;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Hero text: no background shadow/outline */
+        .hero p,
+        .hero h1 {
+            margin: 6px 0;
+            text-shadow: none;
+        }
+
+        /* --- Main Content Container --- */
+        .container {
+            max-width: 900px;
+            margin: -80px auto 40px auto; /* Pulls the container up into the hero */
+            background-color: #F8F5F2;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- The Details Section --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+            padding: 24px 0;
+        }
+        
+        .detail-item {
+            padding: 0 8px;
+            border-right: 1px solid var(--linen);
+        }
+        
+        .detail-item:last-child {
+            border-right: none;
+        }
+        
+        .detail-item h3 {
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        
+        /* --- Map Section --- */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 35%; /* Wider aspect ratio for shorter height */
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* --- Updates Section --- */
+        .updates-box {
+            background-color: #F8F5F2; /* Light sage background */
+            border-left: 5px solid #8FBC8F;
+            padding: 20px 30px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .updates-box ul {
+            padding-left: 20px;
+        }
+        
+        .updates-box li {
+            margin-bottom: 10px;
+        }
+
+        /* --- RSVP Form Section --- */
+        .rsvp-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rsvp-form label {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .rsvp-form input[type="text"],
+        .rsvp-form input[type="email"],
+        .rsvp-form select,
+        .rsvp-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box; /* Important for padding */
+        }
+        
+        .rsvp-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .spinbox-container {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            width: fit-content;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .spinbox-btn {
+            background-color: var(--terracotta);
+            color: white;
+            border: none;
+            width: 45px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .spinbox-btn:hover {
+            background-color: #9a643e;
+        }
+
+        .spinbox-input {
+            width: 80px;
+            text-align: center;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--olive);
+            background-color: white;
+            padding: 12px 0;
+            margin: 0;
+            -moz-appearance: textfield;
+            box-sizing: border-box;
+        }
+
+        .spinbox-input::-webkit-outer-spin-button,
+        .spinbox-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .spinbox-input:focus {
+            outline: none;
+            background-color: #f8f9fa;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--terracotta);
+            border-radius: 4px;
+            position: relative;
+            background-color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background-color: var(--terracotta);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .rsvp-form button {
+            background-color: var(--terracotta);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .rsvp-form button:hover {
+            background-color: #9a643e; /* Darker terracotta on hover */
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+        }
+        
+        /* --- Responsive Design for Mobile --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .hero {
+                height: 50vh;
+            }
+            .monogram {
+                width: 60px;
+                height: 60px;
+                font-size: 1.1rem;
+            }
+            /* No chip padding/radius needed for outline */
+            .container {
+                margin: -60px 20px 20px 20px;
+                padding: 30px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .detail-item {
+                border-right: none;
+                border-bottom: 1px solid var(--linen);
+                padding: 16px 0;
+            }
+            .detail-item:last-child {
+                border-bottom: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Password Protection Screen -->
+    <div id="password-screen">
+        <div class="password-container">
+            <h1>Megan & Danté</h1>
+            <p>Please enter the password to view our wedding invitation</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password" onkeypress="handlePasswordKeypress(event)">
+            <button onclick="checkPassword()" class="password-btn">Enter</button>
+            <div id="error-message" class="error-message">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <header class="hero">
+        <p>You're invited to the wedding of</p>
+        <h1>Megan & Danté</h1>
+        <p>Saturday, 21 February 2026 &middot; Natte Valleij, South Africa</p>
+    </header>
+
+    <main class="container">
+
+
+        <section id="details">
+            <h2>The Details</h2>
+            <div class="rule"></div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <h3>When</h3>
+                    <p>Saturday, 21st February 2026</p>
+                    <p>Ceremony begins at 3:30 PM</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Where</h3>
+                    <p>Natte Valleij Estate</p>
+                    <p>R44, Klapmuts, Stellenbosch</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Dress Code</h3>
+                    <p>Formal Attire</p>
+                    <p>Think suits for men and elegant dresses for women.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="location">
+            <h2>Location</h2>
+            <div class="rule"></div>
+            
+            <!-- Map Container with Multiple Fallback Options -->
+            <!-- Map Container with Multiple Fallback Options -->
+            <div class="map-container">
+                <!-- Primary: Google Maps Embed -->
+                <div id="map-google" class="map-option">
+                    <iframe id="google-map" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.933860010991!2d18.8777594!3d-33.8336855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcdac6d52d0d2cf%3A0x52d7792a0f0790cb!2sNatte%20Valleij!5e0!3m2!1sen!2sza!4v1723206256958!5m2!1sen!2sza&markers=color:red%7Clabel:N%7C-33.8336855,18.8777594" 
+                            width="600" height="450" 
+                            style="border:0; opacity: 0; transition: opacity 0.5s ease;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <!-- Fallback: Static Map with Links -->
+                <div id="map-fallback" class="map-option" style="display: none;">
+                    <div class="static-map-content">
+                        <div class="map-placeholder">
+                            <div class="map-icon">🗺️</div>
+                            <h3>📍 Natte Valleij</h3>
+                            <p class="address">R44, Klapmuts, Stellenbosch, South Africa</p>
+                            <p class="description">A historic wine farm nestled between Stellenbosch and Paarl</p>
+                        </div>
+                        <div class="map-actions">
+                            <a href="https://maps.google.com/?q=Natte%20Valleij%20R44%2C%20Klapmuts%2C%20Stellenbosch%2C%20South%20Africa" 
+                               target="_blank" class="map-button primary">
+                                🗺️ Open in Google Maps
+                            </a>
+                            <a href="https://www.openstreetmap.org/search?query=Natte%20Valleij%20R44%2C%20Klapmuts%2C%20Stellenbosch%2C%20South%20Africa" 
+                               target="_blank" class="map-button secondary">
+                                🌍 Open in OpenStreetMap
+                            </a>
+                            <a href="https://www.waze.com/live-map/directions/Natte%20Valleij%20R44%2C%20Klapmuts%2C%20Stellenbosch%2C%20South%20Africa" 
+                               target="_blank" class="map-button secondary">
+                                🚗 Open in Waze
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div id="map-loading" class="map-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading map...</p>
+                </div>
+            </div>
+            
+            <style>
+                .map-container {
+                    position: relative;
+                    width: 100%;
+                    height: 280px;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    border: 1px solid #ddd;
+                    background-color: #F8F5F2;
+                }
+                
+                .map-option {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+                
+                .static-map-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    padding: 40px;
+                    text-align: center;
+                    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                }
+                
+                .map-placeholder {
+                    margin-bottom: 30px;
+                }
+                
+                .map-icon {
+                    font-size: 4rem;
+                    margin-bottom: 20px;
+                    opacity: 0.7;
+                }
+                
+                .map-placeholder h3 {
+                    color: #2c3e50;
+                    margin-bottom: 10px;
+                    font-size: 1.5rem;
+                }
+                
+                .address {
+                    color: #6c757d;
+                    font-size: 1.1rem;
+                    margin-bottom: 10px;
+                    font-weight: 500;
+                }
+                
+                .description {
+                    color: #868e96;
+                    font-size: 0.95rem;
+                    margin-bottom: 0;
+                }
+                
+                .map-actions {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    width: 100%;
+                    max-width: 300px;
+                }
+                
+                .map-button {
+                    display: inline-block;
+                    padding: 12px 20px;
+                    text-decoration: none;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    transition: all 0.3s ease;
+                    border: none;
+                    cursor: pointer;
+                }
+                
+                .map-button.primary {
+                    background-color: #F8F5F2;
+                    color: white;
+                }
+                
+                .map-button.primary:hover {
+                    background-color: #F8F5F2;
+                    transform: translateY(-1px);
+                }
+                
+                .map-button.secondary {
+                    background-color: #F8F5F2;
+                    color: white;
+                }
+                
+                .map-button.secondary:hover {
+                    background-color: #F8F5F2;
+                    transform: translateY(-1px);
+                }
+                
+                .map-loading {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: rgba(248, 249, 250, 0.9);
+                    z-index: 10;
+                }
+                
+                .loading-spinner {
+                    width: 40px;
+                    height: 40px;
+                    border: 4px solid #e9ecef;
+                    border-top: 4px solid #4CAF50;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin-bottom: 15px;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                .map-loading p {
+                    color: #6c757d;
+                    font-weight: 500;
+                }
+                
+                @media (max-width: 768px) {
+                    .map-actions {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+                    
+                    .map-button {
+                        padding: 10px 16px;
+                        font-size: 0.9rem;
+                    }
+                }
+            </style>
+            
+            <script>
+                (function() {
+                    'use strict';
+                    
+                    const mapGoogle = document.getElementById('map-google');
+                    const mapFallback = document.getElementById('map-fallback');
+                    const mapLoading = document.getElementById('map-loading');
+                    const googleMap = document.getElementById('google-map');
+                    
+                    let mapLoaded = false;
+                    let fallbackShown = false;
+                    
+                    // Function to show fallback
+                    function showFallback() {
+                        if (!fallbackShown) {
+                            mapLoading.style.display = 'none';
+                            mapGoogle.style.display = 'none';
+                            mapFallback.style.display = 'block';
+                            fallbackShown = true;
+                        }
+                    }
+                    
+                    // Function to show Google Maps
+                    function showGoogleMaps() {
+                        mapLoading.style.display = 'none';
+                        mapGoogle.style.display = 'block';
+                        mapFallback.style.display = 'none';
+                        googleMap.style.opacity = '1';
+                        mapLoaded = true;
+                    }
+                    
+                    // Check if Google Maps loads successfully
+                    if (googleMap) {
+                        // Set a timeout to show fallback if map doesn't load
+                        const loadTimeout = setTimeout(function() {
+                            if (!mapLoaded) {
+                                console.log('Map load timeout - showing fallback');
+                                showFallback();
+                            }
+                        }, 8000); // 8 second timeout
+                        
+                        // Listen for successful load
+                        googleMap.addEventListener('load', function() {
+                            clearTimeout(loadTimeout);
+                            console.log('Google Maps loaded successfully');
+                            showGoogleMaps();
+                        });
+                        
+                        // Listen for errors
+                        googleMap.addEventListener('error', function() {
+                            clearTimeout(loadTimeout);
+                            console.log('Google Maps failed to load');
+                            showFallback();
+                        });
+                        
+                        // Additional error detection for iframe
+                        googleMap.addEventListener('loadstart', function() {
+                            console.log('Map loading started');
+                        });
+                        
+                        // Handle cases where iframe might be blocked
+                        setTimeout(function() {
+                            if (!mapLoaded && !fallbackShown) {
+                                console.log('Checking if map is blocked...');
+                                try {
+                                    // Try to access iframe content (will fail if blocked)
+                                    const iframeDoc = googleMap.contentDocument || googleMap.contentWindow.document;
+                                    console.log('Map accessible');
+                                } catch (e) {
+                                    console.log('Map blocked or failed to load:', e.message);
+                                    showFallback();
+                                }
+                            }
+                        }, 3000);
+                    } else {
+                        // If no Google Maps iframe, show fallback immediately
+                        showFallback();
+                    }
+                })();
+            </script>
+        </section>
+
+        <section id="rsvp">
+            <h2>Kindly RSVP</h2>
+            <div class="rule"></div>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+                Please let us know if you can make it by February 15th, 2026. We can't wait to celebrate with you!
+            </p>
+            
+            <form action="#" method="POST" class="rsvp-form">
+                <div class="form-group">
+                    <label for="email">Enter your email address:</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guest-count">How many people are you responding for?</label>
+                    <div class="spinbox-container">
+                        <button type="button" class="spinbox-btn" onclick="decrementGuests()">-</button>
+                        <input type="number" id="guest-count" name="guest-count" value="1" min="1" max="10" class="spinbox-input">
+                        <button type="button" class="spinbox-btn" onclick="incrementGuests()">+</button>
+                    </div>
+                </div>
+
+                <div id="guest-names-container" class="form-group">
+                    <label for="guest-1">Guest 1 Name:</label>
+                    <input type="text" id="guest-1" name="guest-1" placeholder="Full name" required>
+                </div>
+
+
+
+                <div style="text-align: center; margin: 30px 0 20px 0; color: #666; font-style: italic; font-size: 0.9rem;">
+                    Thank you. You will be emailed with a confirmation that we have received your RSVP.
+                </div>
+                
+                <button type="submit">Submit RSVP</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <div class="monogram">M & D</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>With love,</p>
+        <p style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: -10px;">Megan & Danté</p>
+    </footer>
+    </div> <!-- End of main-content -->
+
+    <script>
+        // Password protection
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'd&m@21feb2026';
+            
+            if (password === correctPassword) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                // Store in session storage so it persists during the session
+                sessionStorage.setItem('weddingAccess', 'granted');
+            } else {
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+        
+        function handlePasswordKeypress(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+        
+        // Check if user already has access
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('weddingAccess') === 'granted') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }
+        });
+        // Spinbox functionality
+        function incrementGuests() {
+            const input = document.getElementById('guest-count');
+            const currentValue = parseInt(input.value);
+            if (currentValue < parseInt(input.max)) {
+                input.value = currentValue + 1;
+                updateGuestInputs();
+            }
+        }
+
+        function decrementGuests() {
+            const input = document.getElementById('guest-count');
+            const currentValue = parseInt(input.value);
+            if (currentValue > parseInt(input.min)) {
+                input.value = currentValue - 1;
+                updateGuestInputs();
+            }
+        }
+
+        function updateGuestInputs() {
+            const guestCount = parseInt(document.getElementById('guest-count').value);
+            const container = document.getElementById('guest-names-container');
+            
+            // Clear existing inputs
+            container.innerHTML = '';
+            
+            // Create inputs for each guest
+            for (let i = 1; i <= guestCount; i++) {
+                // Guest name input
+                const nameFormGroup = document.createElement('div');
+                nameFormGroup.className = 'form-group';
+                
+                const nameLabel = document.createElement('label');
+                nameLabel.setAttribute('for', `guest-${i}`);
+                
+                // Different label for first guest vs others
+                if (i === 1) {
+                    nameLabel.textContent = 'Enter Your Name:';
+                } else {
+                    nameLabel.textContent = `Guest ${i} Name:`;
+                }
+                
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.id = `guest-${i}`;
+                nameInput.name = `guest-${i}`;
+                nameInput.placeholder = 'Full name';
+                nameInput.required = true;
+                
+                nameFormGroup.appendChild(nameLabel);
+                nameFormGroup.appendChild(nameInput);
+                container.appendChild(nameFormGroup);
+                
+                // Guest dietary requirements
+                const dietaryFormGroup = document.createElement('div');
+                dietaryFormGroup.className = 'form-group';
+                dietaryFormGroup.style.marginTop = '8px';
+                dietaryFormGroup.style.marginBottom = '8px';
+                
+                const dietaryLabel = document.createElement('label');
+                
+                // Different label for first guest vs others
+                if (i === 1) {
+                    dietaryLabel.textContent = 'Dietary Requirements/Allergies:';
+                } else {
+                    dietaryLabel.textContent = `Guest ${i} Dietary Requirements/Allergies:`;
+                }
+                dietaryLabel.setAttribute('for', `dietary-${i}`);
+                
+                const dietaryInput = document.createElement('input');
+                dietaryInput.type = 'text';
+                dietaryInput.id = `dietary-${i}`;
+                dietaryInput.name = `dietary-${i}`;
+                dietaryInput.placeholder = 'e.g., Vegetarian, gluten-free...';
+                
+                dietaryFormGroup.appendChild(dietaryLabel);
+                dietaryFormGroup.appendChild(dietaryInput);
+                container.appendChild(dietaryFormGroup);
+                
+                // Guest attendance checkbox
+                const attendanceFormGroup = document.createElement('div');
+                attendanceFormGroup.className = 'form-group';
+                attendanceFormGroup.style.marginTop = '8px';
+                attendanceFormGroup.style.marginBottom = '20px';
+                
+                const attendanceLabel = document.createElement('label');
+                
+                // Different label for first guest vs others
+                if (i === 1) {
+                    attendanceLabel.textContent = 'Will you be attending?';
+                } else {
+                    attendanceLabel.textContent = `Will Guest ${i} be attending?`;
+                }
+                attendanceLabel.style.fontSize = '0.9rem';
+                attendanceLabel.style.color = '#666';
+                
+                const checkboxGroup = document.createElement('div');
+                checkboxGroup.className = 'checkbox-group';
+                checkboxGroup.style.marginTop = '5px';
+                
+                // Yes checkbox
+                const yesLabel = document.createElement('label');
+                yesLabel.className = 'checkbox-label';
+                
+                const yesCheckbox = document.createElement('input');
+                yesCheckbox.type = 'checkbox';
+                yesCheckbox.id = `guest-${i}-yes`;
+                yesCheckbox.name = `guest-${i}-attending`;
+                yesCheckbox.value = 'Yes';
+                
+                const yesCheckmark = document.createElement('span');
+                yesCheckmark.className = 'checkmark';
+                
+                yesLabel.appendChild(yesCheckbox);
+                yesLabel.appendChild(yesCheckmark);
+                yesLabel.appendChild(document.createTextNode(' Yes'));
+                
+                // No checkbox
+                const noLabel = document.createElement('label');
+                noLabel.className = 'checkbox-label';
+                
+                const noCheckbox = document.createElement('input');
+                noCheckbox.type = 'checkbox';
+                noCheckbox.id = `guest-${i}-no`;
+                noCheckbox.name = `guest-${i}-attending`;
+                noCheckbox.value = 'No';
+                
+                const noCheckmark = document.createElement('span');
+                noCheckmark.className = 'checkmark';
+                
+                noLabel.appendChild(noCheckbox);
+                noLabel.appendChild(noCheckmark);
+                noLabel.appendChild(document.createTextNode(' No'));
+                
+                checkboxGroup.appendChild(yesLabel);
+                checkboxGroup.appendChild(noLabel);
+                
+                attendanceFormGroup.appendChild(attendanceLabel);
+                attendanceFormGroup.appendChild(checkboxGroup);
+                container.appendChild(attendanceFormGroup);
+            }
+        }
+
+        // Initialize guest inputs on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGuestInputs();
+            
+            // Add event listener for manual input changes
+            document.getElementById('guest-count').addEventListener('input', updateGuestInputs);
+        });
+    </script>
+
+</body>
+</html>
+
