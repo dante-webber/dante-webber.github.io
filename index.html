@@ -24,6 +24,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
         :root{
@@ -810,7 +813,7 @@
                 Please let us know if you can make it by February 15th, 2026. We can't wait to celebrate with you!
             </p>
             
-            <form action="#" method="POST" class="rsvp-form">
+            <form id="rsvp-form" class="rsvp-form">
                 <div class="form-group">
                     <label for="email">Enter your email address:</label>
                     <input type="email" id="email" name="email" placeholder="you@example.com" required>
@@ -1061,6 +1064,77 @@
             
             // Add event listener for manual input changes
             document.getElementById('guest-count').addEventListener('input', updateGuestInputs);
+            
+            // Initialize EmailJS
+            (function() {
+                emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+            })();
+            
+            // Handle form submission
+            const form = document.getElementById('rsvp-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                
+                // Collect form data
+                const formData = new FormData(form);
+                const email = formData.get('email');
+                const guestCount = formData.get('guest-count');
+                
+                // Prepare data for Google Forms
+                const googleFormsData = new URLSearchParams();
+                googleFormsData.append('entry.1234567890', email); // Replace with actual Google Forms field IDs
+                googleFormsData.append('entry.0987654321', guestCount);
+                
+                // Add guest names and other data
+                for (let i = 1; i <= guestCount; i++) {
+                    const guestName = formData.get(`guest-${i}`);
+                    const dietary = formData.get(`dietary-${i}`);
+                    const attending = formData.get(`guest-${i}-attending`);
+                    
+                    if (guestName) googleFormsData.append(`entry.${1111111111 + i}`, guestName);
+                    if (dietary) googleFormsData.append(`entry.${2222222222 + i}`, dietary);
+                    if (attending) googleFormsData.append(`entry.${3333333333 + i}`, attending);
+                }
+                
+                // Submit to Google Forms
+                fetch('https://docs.google.com/forms/d/YOUR_GOOGLE_FORM_ID/formResponse', {
+                    method: 'POST',
+                    body: googleFormsData,
+                    mode: 'no-cors' // Required for Google Forms
+                })
+                .then(() => {
+                    // Send confirmation email via EmailJS
+                    return emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
+                        to_email: email,
+                        to_name: formData.get('guest-1') || 'Guest',
+                        message: 'Thank you for your RSVP! We have received your response and look forward to celebrating with you on February 21st, 2026.'
+                    });
+                })
+                .then(() => {
+                    // Success - show confirmation message
+                    form.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 3rem; margin-bottom: 20px;">✅</div>
+                            <h3 style="color: var(--terracotta); margin-bottom: 15px;">Thank You!</h3>
+                            <p style="color: #666; margin-bottom: 20px;">Your RSVP has been received successfully.</p>
+                            <p style="color: #888; font-size: 0.9rem;">You will receive a confirmation email shortly.</p>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Show error message
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    alert('There was an error submitting your RSVP. Please try again or contact us directly.');
+                });
+            });
         });
     </script>
 
