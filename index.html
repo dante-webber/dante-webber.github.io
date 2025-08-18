@@ -117,9 +117,45 @@
             font-family: 'Lato', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #F8F5F2; /* Soft, warm off-white */
-            color: #333333; line-height: 1.7;
+            background-color: var(--light-olive);
+            color: #333333;
+            line-height: 1.7;
             font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Main container for layered background */
+        .main-container {
+            position: relative;
+            width: 100vw;
+            min-height: 100vh;
+        }
+
+        /* Base layer: Engagement photo */
+        .engagement-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120vh;
+            background-image: url('Engagement_Photo.jpg');
+            background-size: cover;
+            background-position: center calc(30% + var(--hero-bg-vertical-offset));
+            background-repeat: no-repeat;
+            filter: blur(7px);
+            z-index: 1;
+        }
+
+        /* Middle layer: Olive shape overlay */
+        .olive-shape-overlay {
+            position: absolute;
+            top: 90vh;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60vh + 100px); /* Extend to bottom of page with extra padding */
+            background-color: var(--light-olive);
+            border-radius: 20px 150px 0 0;
+            z-index: 2;
         }
 
         /* --- Typography --- */
@@ -161,7 +197,6 @@
 
         /* --- Header / Hero Section --- */
         .hero {
-            background-color: rgba(0, 0, 0, 0.0);
             height: 60vh;
             min-height: 400px;
             display: flex;
@@ -172,37 +207,9 @@
             color: #f6edd3;
             padding: 20px;
             position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('Engagement_Photo.jpg');
-            background-size: cover;
-            background-position: center calc(20% + var(--hero-bg-vertical-offset));
-            background-repeat: no-repeat;
-            filter: blur(8px);
-            z-index: -1;
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('Engagement_Photo.jpg');
-            background-size: cover;
-            background-position: center calc(20% + var(--hero-bg-vertical-offset));
-            background-repeat: no-repeat;
-            filter: blur(8px);
-            opacity: 0.4;
-            z-index: -1;
+            z-index: 4;
+            margin-top: -700px;
+            margin-bottom: 0px; /* Reduced margin since container is now closer */
         }
         
         .monogram {
@@ -235,14 +242,14 @@
         /* --- Main Content Container --- */
         .container {
             max-width: 900px;
-            margin: -80px auto 40px auto; /* Pulls the container up into the hero */
-            background-color: #c99e87; /* Terracotta brown color */
-            border-radius: 20px 20px 20px 300px; /* top-left, top-right, bottom-right, bottom-left */
+            margin: -100px auto 40px auto; /* Move up significantly - was -150px, now 20px */
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
-            z-index: 2;
+            z-index: 4;
             color: #ffffff;
+            background-color: var(--tan);
+            border-radius: 20px 20px 20px 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         section {
@@ -493,11 +500,14 @@
                 height: 60px;
                 font-size: 1.1rem;
             }
-            /* No chip padding/radius needed for outline */
             .container {
-                margin: -60px 20px 20px 20px;
-                padding: 30px;
+                margin: -100px 20px 40px 20px; /* Updated to match desktop changes */
+                padding-top: 15px;
+                padding-bottom: 50px;
+                padding-left: 50px;
+                padding-right: 50px;
             }
+
             .details-grid {
                 grid-template-columns: 1fr;
             }
@@ -511,9 +521,22 @@
             }
         }
 
+
+
     </style>
 </head>
 <body>
+
+    <!-- Layered Background -->
+    <div class="main-container">
+        <!-- Base layer: Engagement photo -->
+        <div class="engagement-photo"></div>
+        
+        <!-- Middle layer: Olive shape overlay -->
+        <div class="olive-shape-overlay"></div>
+        
+
+    </div>
 
     <!-- Password Protection Screen -->
     <div id="password-screen">
@@ -529,12 +552,12 @@
     <!-- Main Content -->
     <div id="main-content">
         <header class="hero">
-        <p>You're invited to the wedding of</p>
-        <h1>Megan & Danté</h1>
-        <p>Saturday, 21 February 2026 &middot; Natte Valleij, South Africa</p>
-    </header>
+            <p>You're invited to the wedding of</p>
+            <h1>Megan & Danté</h1>
+            <p>Saturday, 21 February 2026 &middot; Natte Valleij, South Africa</p>
+        </header>
 
-    <main class="container">
+        <main class="container">
 
 
         <section id="details">
