@@ -30,7 +30,7 @@
 
     <style>
         :root{
-            --terracotta: #b2774c; --tan:#c6a086; --greige:#a6a18f; --olive:#645c41; --linen:#dfddd8; --white:#ffffff;
+            --terracotta: #b2774c; --tan:#c6a086; --greige:#a6a18f; --olive:#645c41; --linen:#dfddd8; --white:#ffffff; --off-white:#f6edd3; --light-olive:#a9a48e;
             --hero-bg-vertical-offset: 0%; /* Adjust this value to fine-tune vertical positioning */
         }
         
@@ -41,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--olive) 0%, var(--terracotta) 100%);
+            background: linear-gradient(135deg, var(--olive) 0%, var(--greige) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -83,11 +83,11 @@
         
         .password-input:focus {
             outline: none;
-            border-color: var(--terracotta);
+            border-color: var(--greige);
         }
         
         .password-btn {
-            background: var(--terracotta);
+            background: var(--greige);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -137,20 +137,20 @@
         }
 
         .hero h1 {
-            color: #ffffff;
+            color: #f6edd3;
         }
 
         h2 {
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 6px;
-            color: var(--olive);
+            color: var(--off-white);
         }
         
         .rule {
             width: 80px;
             height: 2px;
-            background: var(--terracotta);
+            background: var(--off-white);
             opacity: 0.6;
             margin: 0 auto 24px;
         }
@@ -169,7 +169,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #ffffff;
+            color: #f6edd3;
             padding: 20px;
             position: relative;
         }
@@ -212,11 +212,11 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 3px solid var(--terracotta);
+            border: 3px solid var(--off-white);
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.4rem;
-            color: var(--terracotta);
+            color: var(--off-white);
             margin: 0 auto;
         }
 
@@ -236,12 +236,13 @@
         .container {
             max-width: 900px;
             margin: -80px auto 40px auto; /* Pulls the container up into the hero */
-            background-color: #F8F5F2;
+            background-color: #c99e87; /* Terracotta brown color */
+            border-radius: 20px 20px 20px 300px; /* top-left, top-right, bottom-right, bottom-left */
             padding: 40px;
-            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 2;
+            color: #ffffff;
         }
 
         section {
@@ -273,7 +274,7 @@
         
         .detail-item h3 {
             font-size: 1.5rem;
-            color: var(--terracotta);
+            color: var(--off-white);
             margin-bottom: 0.5rem;
         }
 
@@ -367,7 +368,7 @@
         }
 
         .spinbox-btn {
-            background-color: var(--terracotta);
+            background-color: var(--greige);
             color: white;
             border: none;
             width: 45px;
@@ -431,7 +432,7 @@
         .checkmark {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--terracotta);
+            border: 2px solid var(--tan);
             border-radius: 4px;
             position: relative;
             background-color: white;
@@ -439,7 +440,7 @@
         }
 
         .checkbox-label input[type="checkbox"]:checked + .checkmark {
-            background-color: var(--terracotta);
+            background-color: var(--tan);
         }
 
         .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
@@ -454,7 +455,7 @@
         }
 
         .rsvp-form button {
-            background-color: var(--terracotta);
+            background-color: var(--greige);
             color: white;
             padding: 15px 20px;
             border: none;
@@ -1153,7 +1154,7 @@
                     form.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
                             <div style="font-size: 3rem; margin-bottom: 20px;">✅</div>
-                            <h3 style="color: var(--terracotta); margin-bottom: 15px;">Thank You!</h3>
+                            <h3 style="color: var(--greige); margin-bottom: 15px;">Thank You!</h3>
                             <p style="color: #666; margin-bottom: 20px;">Your RSVP has been received successfully.</p>
                             <p style="color: #888; font-size: 0.9rem;">You will receive a confirmation email shortly.</p>
                         </div>
