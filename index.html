@@ -31,6 +31,7 @@
     <style>
         :root{
             --terracotta: #b2774c; --tan:#c6a086; --greige:#a6a18f; --olive:#645c41; --linen:#dfddd8; --white:#ffffff;
+            --hero-bg-vertical-offset: 0%; /* Adjust this value to fine-tune vertical positioning */
         }
         
         /* Password Protection */
@@ -160,7 +161,7 @@
 
         /* --- Header / Hero Section --- */
         .hero {
-            background-color: var(--greige);
+            background-color: rgba(0, 0, 0, 0.0);
             height: 60vh;
             min-height: 400px;
             display: flex;
@@ -171,6 +172,37 @@
             color: #ffffff;
             padding: 20px;
             position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('Engagement_Photo.jpg');
+            background-size: cover;
+            background-position: center calc(20% + var(--hero-bg-vertical-offset));
+            background-repeat: no-repeat;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('Engagement_Photo.jpg');
+            background-size: cover;
+            background-position: center calc(20% + var(--hero-bg-vertical-offset));
+            background-repeat: no-repeat;
+            filter: blur(8px);
+            opacity: 0.4;
+            z-index: -1;
         }
         
         .monogram {
