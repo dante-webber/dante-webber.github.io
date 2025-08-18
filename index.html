@@ -142,19 +142,19 @@
             background-size: cover;
             background-position: center calc(30% + var(--hero-bg-vertical-offset));
             background-repeat: no-repeat;
-            filter: blur(7px);
+            filter: blur(0px);
             z-index: 1;
         }
 
         /* Middle layer: Olive shape overlay */
         .olive-shape-overlay {
             position: absolute;
-            top: 90vh;
+            top: 80vh;
             left: 0;
             width: 100%;
             height: calc(100vh - 60vh + 100px); /* Extend to bottom of page with extra padding */
             background-color: var(--light-olive);
-            border-radius: 20px 150px 0 0;
+            border-radius: 0px 150px 0 0;
             z-index: 2;
         }
 
@@ -173,7 +173,7 @@
         }
 
         .hero h1 {
-            color: #f6edd3;
+            color: #ffffff;
         }
 
         h2 {
@@ -204,7 +204,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #f6edd3;
+            color: #ffffff;
             padding: 20px;
             position: relative;
             z-index: 4;
@@ -497,6 +497,11 @@
             .hero {
                 height: 50vh;
             }
+            .engagement-photo {
+                background-position: center calc(20% + var(--hero-bg-vertical-offset)); /* Move photo up by changing from 30% to 20% */
+                height: 120vh; /* Reduce height from 120vh to 100vh */
+                top: -120px;
+            }
             .monogram {
                 width: 70px;
                 height: 70px;
@@ -504,7 +509,7 @@
                 left: 70px;
             }
             .container {
-                margin: -100px 20px 40px 20px; /* Updated to match desktop changes */
+                margin: -100px 50px 40px 50px; /* Updated to match desktop changes */
                 padding-top: 15px;
                 padding-bottom: 0px;
                 padding-left: 50px;
