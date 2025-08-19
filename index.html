@@ -646,6 +646,9 @@
                             <p class="description">A historic wine farm nestled between Stellenbosch and Paarl</p>
                         </div>
                         <div class="map-actions">
+                            <button id="reload-map-btn" class="map-button primary" style="display: none;">
+                                🔄 Reload Map
+                            </button>
                             <a href="https://maps.google.com/?q=Natte%20Valleij%20R44%2C%20Klapmuts%2C%20Stellenbosch%2C%20South%20Africa" 
                                target="_blank" class="map-button primary">
                                 🗺️ Open in Google Maps
@@ -823,9 +826,12 @@
                     const mapFallback = document.getElementById('map-fallback');
                     const mapLoading = document.getElementById('map-loading');
                     const googleMap = document.getElementById('google-map');
+                    const reloadBtn = document.getElementById('reload-map-btn');
                     
                     let mapLoaded = false;
                     let fallbackShown = false;
+                    let loadAttempts = 0;
+                    const maxAttempts = 3;
                     
                     // Function to show fallback
                     function showFallback() {
@@ -834,6 +840,10 @@
                             mapGoogle.style.display = 'none';
                             mapFallback.style.display = 'block';
                             fallbackShown = true;
+                            // Show reload button in fallback
+                            if (reloadBtn) {
+                                reloadBtn.style.display = 'inline-block';
+                            }
                         }
                     }
                     
@@ -846,28 +856,66 @@
                         mapLoaded = true;
                     }
                     
+                    // Function to reload the map
+                    function reloadMap() {
+                        if (loadAttempts >= maxAttempts) {
+                            console.log('Max reload attempts reached - showing fallback');
+                            showFallback();
+                            return;
+                        }
+                        
+                        loadAttempts++;
+                        console.log(`Attempting to reload map (attempt ${loadAttempts}/${maxAttempts})`);
+                        
+                        // Reset the iframe src to force a reload
+                        const currentSrc = googleMap.src;
+                        googleMap.src = '';
+                        googleMap.style.opacity = '0';
+                        
+                        // Small delay to ensure the iframe is reset
+                        setTimeout(() => {
+                            googleMap.src = currentSrc;
+                            
+                            // Set a shorter timeout for each attempt
+                            const reloadTimeout = setTimeout(() => {
+                                if (!mapLoaded) {
+                                    console.log(`Reload attempt ${loadAttempts} failed`);
+                                    reloadMap();
+                                }
+                            }, 4000); // 4 second timeout for reload attempts
+                            
+                            // Clear timeout if map loads successfully
+                            googleMap.addEventListener('load', function onLoad() {
+                                clearTimeout(reloadTimeout);
+                                googleMap.removeEventListener('load', onLoad);
+                                console.log('Google Maps loaded successfully after reload');
+                                showGoogleMaps();
+                            }, { once: true });
+                        }, 100);
+                    }
+                    
                     // Check if Google Maps loads successfully
                     if (googleMap) {
-                        // Set a timeout to show fallback if map doesn't load
+                        // Set initial timeout to show fallback if map doesn't load
                         const loadTimeout = setTimeout(function() {
                             if (!mapLoaded) {
-                                console.log('Map load timeout - showing fallback');
-                                showFallback();
+                                console.log('Initial map load timeout - attempting reload');
+                                reloadMap();
                             }
-                        }, 8000); // 8 second timeout
+                        }, 6000); // 6 second initial timeout
                         
                         // Listen for successful load
                         googleMap.addEventListener('load', function() {
                             clearTimeout(loadTimeout);
-                            console.log('Google Maps loaded successfully');
+                            console.log('Google Maps loaded successfully on first attempt');
                             showGoogleMaps();
                         });
                         
                         // Listen for errors
                         googleMap.addEventListener('error', function() {
                             clearTimeout(loadTimeout);
-                            console.log('Google Maps failed to load');
-                            showFallback();
+                            console.log('Google Maps failed to load - attempting reload');
+                            reloadMap();
                         });
                         
                         // Additional error detection for iframe
@@ -875,25 +923,84 @@
                             console.log('Map loading started');
                         });
                         
-                        // Handle cases where iframe might be blocked
+                        // Handle cases where iframe might be blocked or network issues
                         setTimeout(function() {
                             if (!mapLoaded && !fallbackShown) {
-                                console.log('Checking if map is blocked...');
+                                console.log('Checking if map is accessible...');
                                 try {
                                     // Try to access iframe content (will fail if blocked)
                                     const iframeDoc = googleMap.contentDocument || googleMap.contentWindow.document;
                                     console.log('Map accessible');
                                 } catch (e) {
                                     console.log('Map blocked or failed to load:', e.message);
-                                    showFallback();
+                                    reloadMap();
                                 }
                             }
-                        }, 3000);
+                        }, 2000);
+                        
+                        // Force reload on page visibility change (when user returns to tab)
+                        document.addEventListener('visibilitychange', function() {
+                            if (!document.hidden && !mapLoaded && !fallbackShown) {
+                                console.log('Page became visible - checking map status');
+                                setTimeout(() => {
+                                    if (!mapLoaded) {
+                                        reloadMap();
+                                    }
+                                }, 1000);
+                            }
+                        });
+                        
+                        // Add reload button event listener
+                        if (reloadBtn) {
+                            reloadBtn.addEventListener('click', function() {
+                                console.log('Manual reload requested');
+                                // Reset state and try again
+                                mapLoaded = false;
+                                fallbackShown = false;
+                                loadAttempts = 0;
+                                mapLoading.style.display = 'flex';
+                                mapGoogle.style.display = 'block';
+                                mapFallback.style.display = 'none';
+                                reloadBtn.style.display = 'none';
+                                
+                                // Force reload the map
+                                const currentSrc = googleMap.src;
+                                googleMap.src = '';
+                                setTimeout(() => {
+                                    googleMap.src = currentSrc;
+                                    // Start the loading process again
+                                    const loadTimeout = setTimeout(function() {
+                                        if (!mapLoaded) {
+                                            reloadMap();
+                                        }
+                                    }, 6000);
+                                    
+                                    googleMap.addEventListener('load', function() {
+                                        clearTimeout(loadTimeout);
+                                        showGoogleMaps();
+                                    }, { once: true });
+                                }, 100);
+                            });
+                        }
+                        
                     } else {
                         // If no Google Maps iframe, show fallback immediately
                         showFallback();
                     }
                 })();
+                
+                // Additional initialization when DOM is fully loaded
+                document.addEventListener('DOMContentLoaded', function() {
+                    const googleMap = document.getElementById('google-map');
+                    if (googleMap && !googleMap.complete) {
+                        console.log('DOM loaded - ensuring map starts loading');
+                        // Force the iframe to start loading if it hasn't already
+                        const currentSrc = googleMap.src;
+                        if (currentSrc) {
+                            googleMap.src = currentSrc;
+                        }
+                    }
+                });
             </script>
         </section>
 
@@ -1231,4 +1338,5 @@
 
 </body>
 </html>
+
 
