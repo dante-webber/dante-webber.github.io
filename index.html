@@ -146,6 +146,22 @@
             z-index: 1;
         }
 
+        /* Blurred overlay layer: Same engagement photo with blur effect */
+        .engagement-photo-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120vh;
+            background-image: url('Engagement_Photo.jpg');
+            background-size: cover;
+            background-position: center calc(30% + var(--hero-bg-vertical-offset));
+            background-repeat: no-repeat;
+            filter: blur(4px);
+            z-index: 2;
+            opacity: 0.7;
+        }
+
         /* Middle layer: Olive shape overlay */
         .olive-shape-overlay {
             position: absolute;
@@ -502,6 +518,11 @@
                 height: 120vh; /* Reduce height from 120vh to 100vh */
                 top: -120px;
             }
+            .engagement-photo-blur {
+                background-position: center calc(20% + var(--hero-bg-vertical-offset)); /* Move photo up by changing from 30% to 20% */
+                height: 120vh; /* Reduce height from 120vh to 100vh */
+                top: -120px;
+            }
             .monogram {
                 width: 70px;
                 height: 70px;
@@ -539,6 +560,9 @@
     <div class="main-container">
         <!-- Base layer: Engagement photo -->
         <div class="engagement-photo"></div>
+        
+        <!-- Blurred overlay layer: Same engagement photo with blur effect -->
+        <div class="engagement-photo-blur"></div>
         
         <!-- Middle layer: Olive shape overlay -->
         <div class="olive-shape-overlay"></div>
@@ -578,14 +602,13 @@
                     <p>Ceremony begins at 3:30 PM</p>
                 </div>
                 <div class="detail-item">
+                    <h3>Dress Code</h3>
+                    <p>Semi-Formal</p>
+                </div>
+                <div class="detail-item">
                     <h3>Where</h3>
                     <p>Natte Valleij Estate</p>
                     <p>R44, Klapmuts, Stellenbosch</p>
-                </div>
-                <div class="detail-item">
-                    <h3>Dress Code</h3>
-                    <p>Semi-Formal</p>
-                    <p>Think suits for men and elegant dresses for women.</p>
                 </div>
             </div>
         </section>
