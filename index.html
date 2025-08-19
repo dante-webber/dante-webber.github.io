@@ -273,7 +273,7 @@
             padding-bottom: 180px; /* Add extra padding to accommodate the monogram */
             position: relative;
             z-index: 4;
-            color: #ffffff;
+            color: var(--off-white);
             background-color: var(--tan);
             border-radius: 20px 20px 20px 300px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -325,6 +325,7 @@
             padding-top: 35%; /* Wider aspect ratio for shorter height */
             border-radius: 8px;
             border: 1px solid #ddd;
+            margin-top: 50px; /* Add space between Location text and map */
         }
 
         .map-container iframe {
@@ -489,7 +490,7 @@
         }
 
         .rsvp-form button {
-            background-color: var(--greige);
+            background-color: var(--light-olive);
             color: white;
             padding: 15px 20px;
             border: none;
@@ -561,8 +562,10 @@
             }
             .detail-item {
                 border-right: none;
-                border-bottom: 1px solid var(--linen);
+                border-bottom: 1px solid var(--off-white);
                 padding: 16px 0;
+                margin: 0 auto;
+                width: 80%; /* Makes the bottom border slightly shorter */
             }
             .detail-item:last-child {
                 border-bottom: none;
