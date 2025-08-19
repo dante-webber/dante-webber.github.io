@@ -141,12 +141,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 120vh;
+            height: 160vh;
             background-image: url('Engagement_Photo.jpg');
             background-size: cover;
             background-position: center calc(30% + var(--hero-bg-vertical-offset));
             background-repeat: no-repeat;
-            filter: blur(0px);
+            filter: blur(6px);
             z-index: 1;
         }
 
@@ -156,25 +156,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 120vh;
-            background-image: url('Engagement_Photo.jpg');
+            height: 160vh;
+            /* background-image: url('Engagement_Photo.jpg'); */
+            background-color: #a8a38d;
             background-size: cover;
             background-position: center calc(30% + var(--hero-bg-vertical-offset));
             background-repeat: no-repeat;
             filter: blur(4px);
             z-index: 2;
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
         /* Middle layer: Olive shape overlay */
         .olive-shape-overlay {
             position: absolute;
-            top: 80vh;
+            top: 110vh;
             left: 0;
             width: 100%;
             height: calc(100vh - 60vh + 100px); /* Extend to bottom of page with extra padding */
             background-color: var(--light-olive);
-            border-radius: 0px 150px 0 0;
+            border-radius: 0px 300px 0 0;
             z-index: 2;
         }
 
@@ -193,7 +194,8 @@
         }
 
         .hero h1 {
-            color: #ffffff;
+            color: var(--off-white);
+            margin-top: -20px; /* Reduce space between paragraph and h1 */
         }
 
         h2 {
@@ -205,7 +207,7 @@
         
         .rule {
             width: 80px;
-            height: 2px;
+            height: 0px;
             background: var(--off-white);
             opacity: 0.6;
             margin: 0 auto 24px;
@@ -224,8 +226,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #ffffff;
-            padding: 20px;
+            color: var(--off-white);
+            padding-top: 20px; /* Add extra top padding to move text down */
+            padding-left: 20px; 
+            padding-right: 20px;
             position: relative;
             z-index: 4;
             margin-top: -700px;
@@ -233,20 +237,20 @@
         }
         
         .monogram {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--off-white);
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--off-white);
-            margin: 0 auto;
-            margin-left: -5px;
-            margin-bottom: -5px;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .monogram img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .hero p {
@@ -257,7 +261,7 @@
         /* Hero text: no background shadow/outline */
         .hero p,
         .hero h1 {
-            margin: 6px 0;
+            margin: 2px 0; /* Reduced from 6px to 2px for tighter spacing */
             text-shadow: none;
         }
 
@@ -266,6 +270,7 @@
             max-width: 900px;
             margin: -100px auto 40px auto; /* Move up significantly - was -150px, now 20px */
             padding: 40px;
+            padding-bottom: 180px; /* Add extra padding to accommodate the monogram */
             position: relative;
             z-index: 4;
             color: #ffffff;
@@ -276,7 +281,7 @@
 
         section {
             padding: 40px 0;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 0px solid #eaeaea;
         }
 
         section:last-of-type {
@@ -527,16 +532,26 @@
                 height: 120vh; /* Reduce height from 120vh to 100vh */
                 top: -120px;
             }
+            
+            .olive-shape-overlay {
+                border-radius: 0px 100px 0 0; /* Smaller radius for mobile */
+            }
             .monogram {
-                width: 70px;
-                height: 70px;
-                bottom: 70px;
-                left: 70px;
+                width: 100px;
+                height: 100px;
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .monogram img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
             }
             .container {
                 margin: -100px 50px 40px 50px; /* Updated to match desktop changes */
                 padding-top: 15px;
-                padding-bottom: 0px;
+                padding-bottom: 130px; /* Add extra padding for mobile monogram */
                 padding-left: 50px;
                 padding-right: 50px;
             }
@@ -590,7 +605,7 @@
         <header class="hero">
             <p>You're invited to the wedding of</p>
             <h1>Megan & Danté</h1>
-            <p>Saturday, 21 February 2026 &middot; Natte Valleij, South Africa</p>
+            <!-- <p>Saturday, 21 February 2026 &middot; Natte Valleij, South Africa</p> -->
         </header>
 
         <main class="container">
@@ -1040,8 +1055,8 @@
                 <button type="submit">Submit RSVP</button>
             </form>
             
-            <div style="text-align: left; margin-top: 40px; padding-top: 100px">
-                <div class="monogram">M & D</div>
+            <div class="monogram">
+                <img src="m_and_d_monogram.svg" alt="M & D Monogram">
             </div>
         </section>
 
