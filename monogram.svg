@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f6edd3;
+        font-family: AbrilFatface-Regular, 'Abril Fatface';
+        font-size: 257.12px;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #f6edd3;
+        stroke-miterlimit: 10;
+        stroke-width: 32.84px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="540" cy="540" r="481.24"/>
+  <text class="cls-1" transform="translate(182.99 611.87)"><tspan x="0" y="0">M &amp; D</tspan></text>
+</svg>
