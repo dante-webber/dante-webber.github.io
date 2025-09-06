@@ -512,6 +512,93 @@
             color: #777;
         }
         
+        /* --- Horizontal Wedding Timeline Styles --- */
+        .horizontal-timeline {
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--terracotta);
+            z-index: 1;
+        }
+
+        .timeline-event {
+            flex: 1;
+            position: relative;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--terracotta);
+            border: 3px solid var(--off-white);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(178, 116, 76, 0.3);
+            z-index: 3;
+        }
+
+        .timeline-card {
+            background: var(--off-white);
+            padding: 20px 15px;
+            border-radius: 12px;
+            border-top: 3px solid var(--terracotta);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--olive);
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timeline-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+            font-family: 'Lato', sans-serif;
+        }
+
         /* --- Responsive Design for Mobile --- */
         @media (max-width: 768px) {
             h1 {
@@ -570,6 +657,61 @@
             .detail-item:last-child {
                 border-bottom: none;
             }
+
+            /* Mobile Timeline Adjustments */
+            .horizontal-timeline {
+                padding: 0 10px;
+            }
+
+            .timeline-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .timeline-line {
+                top: auto;
+                left: 50%;
+                right: auto;
+                width: 2px;
+                height: calc(100% - 60px);
+                background: var(--terracotta);
+                transform: translateX(-50%);
+            }
+
+            .timeline-event {
+                flex: none;
+                text-align: left;
+                display: flex;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .timeline-dot {
+                position: static;
+                top: auto;
+                left: auto;
+                transform: none;
+                flex-shrink: 0;
+                margin-top: 25px;
+            }
+
+            .timeline-card {
+                margin-top: 0;
+                flex: 1;
+                padding: 15px;
+            }
+
+            .timeline-time {
+                font-size: 1.1rem;
+            }
+
+            .timeline-title {
+                font-size: 1rem;
+            }
+
+            .timeline-description {
+                font-size: 0.9rem;
+            }
         }
 
 
@@ -621,7 +763,6 @@
                 <div class="detail-item">
                     <h3>When</h3>
                     <p>Saturday, 21st February 2026</p>
-                    <p>Ceremony begins at 3:30 PM</p>
                 </div>
                 <div class="detail-item">
                     <h3>Dress Code</h3>
@@ -631,6 +772,45 @@
                     <h3>Where</h3>
                     <p>Natte Valleij Estate</p>
                     <p>R44, Klapmuts, Stellenbosch</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Timeline Section -->
+        <section id="timeline">
+            <h2>Timeline</h2>
+            <div class="rule"></div>
+
+            <div class="horizontal-timeline">
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">15h30</div>
+                            <div class="timeline-title">Arrival</div>
+                            <div class="timeline-description">Start arriving at the venue</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">16h30</div>
+                            <div class="timeline-title">Ceremony</div>
+                            <div class="timeline-description">Wedding ceremony begins</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">19h00</div>
+                            <div class="timeline-title">Reception</div>
+                            <div class="timeline-description">Celebration and dinner</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
