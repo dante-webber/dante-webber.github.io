@@ -296,16 +296,20 @@
             text-align: center;
             padding: 24px 0;
         }
-        
+
+        .details-grid-two {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .detail-item {
             padding: 0 8px;
             border-right: 1px solid var(--linen);
         }
-        
+
         .detail-item:last-child {
             border-right: none;
         }
-        
+
         .detail-item h3 {
             font-size: 1.5rem;
             color: var(--off-white);
@@ -316,7 +320,59 @@
             font-size: 1.1rem;
             margin-bottom: 0;
         }
+
+        /* Detail Cards (using timeline card style) */
+        .detail-card {
+            background: var(--off-white);
+            padding: 20px 15px;
+            border-radius: 12px;
+            border-top: 3px solid var(--terracotta);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin: 0;
+            border-right: none;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-card .timeline-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .detail-card .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--olive);
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
         
+        /* --- Location Info Section --- */
+        .location-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .location-info h3 {
+            font-size: 1.5rem;
+            color: var(--off-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-info p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--off-white);
+        }
+
         /* --- Map Section --- */
         .map-container {
             position: relative;
@@ -325,7 +381,7 @@
             padding-top: 35%; /* Wider aspect ratio for shorter height */
             border-radius: 8px;
             border: 1px solid #ddd;
-            margin-top: 50px; /* Add space between Location text and map */
+            margin-top: 30px; /* Reduced space since we have location info above */
         }
 
         .map-container iframe {
@@ -647,6 +703,12 @@
             .details-grid {
                 grid-template-columns: 1fr;
             }
+
+            .details-grid-two {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
             .detail-item {
                 border-right: none;
                 border-bottom: 1px solid var(--off-white);
@@ -654,8 +716,23 @@
                 margin: 0 auto;
                 width: 80%; /* Makes the bottom border slightly shorter */
             }
+
             .detail-item:last-child {
                 border-bottom: none;
+            }
+
+            .detail-card {
+                width: 100%;
+                margin: 0;
+                padding: 15px;
+            }
+
+            .detail-card .timeline-time {
+                font-size: 1.1rem;
+            }
+
+            .detail-card .timeline-title {
+                font-size: 1rem;
             }
 
             /* Mobile Timeline Adjustments */
@@ -759,19 +836,14 @@
         <section id="details">
             <h2>The Details</h2>
             <div class="rule"></div>
-            <div class="details-grid">
-                <div class="detail-item">
-                    <h3>When</h3>
-                    <p>Saturday, 21st February 2026</p>
+            <div class="details-grid details-grid-two">
+                <div class="detail-item detail-card">
+                    <div class="timeline-time">When</div>
+                    <div class="timeline-title">Saturday, 21st February 2026</div>
                 </div>
-                <div class="detail-item">
-                    <h3>Dress Code</h3>
-                    <p>Semi-Formal</p>
-                </div>
-                <div class="detail-item">
-                    <h3>Where</h3>
-                    <p>Natte Valleij Estate</p>
-                    <p>R44, Klapmuts, Stellenbosch</p>
+                <div class="detail-item detail-card">
+                    <div class="timeline-time">Dress Code</div>
+                    <div class="timeline-title">Semi-Formal</div>
                 </div>
             </div>
         </section>
@@ -818,7 +890,13 @@
         <section id="location">
             <h2>Location</h2>
             <div class="rule"></div>
-            
+
+            <div class="location-info">
+                <h3>Where</h3>
+                <p>Natte Valleij Estate</p>
+                <p>R44, Klapmuts, Stellenbosch</p>
+            </div>
+
             <!-- Map Container with Multiple Fallback Options -->
             <!-- Map Container with Multiple Fallback Options -->
             <div class="map-container">
