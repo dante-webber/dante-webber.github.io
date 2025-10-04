@@ -25,8 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- EmailJS SDK - DISABLED FOR NOW -->
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
         html {
@@ -296,16 +296,18 @@
             text-align: center;
             padding: 24px 0;
         }
-        
-        .detail-item {
-            padding: 0 8px;
-            border-right: 1px solid var(--linen);
+
+        .details-grid-two {
+            grid-template-columns: 200px 200px;
+            justify-content: center;
+            gap: 100px;
         }
-        
-        .detail-item:last-child {
+
+        .detail-item {
+            padding: 0;
             border-right: none;
         }
-        
+
         .detail-item h3 {
             font-size: 1.5rem;
             color: var(--off-white);
@@ -316,7 +318,62 @@
             font-size: 1.1rem;
             margin-bottom: 0;
         }
+
+        /* Detail Cards (using timeline card style) */
+        .detail-card {
+            background: var(--off-white);
+            padding: 20px 15px;
+            border-radius: 12px;
+            border-top: 3px solid var(--terracotta);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            width: 200px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-card .timeline-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .detail-card .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--olive);
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
         
+        /* --- Location Info Section --- */
+        .location-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .location-info h3 {
+            font-size: 1.5rem;
+            color: var(--off-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-info p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--off-white);
+        }
+
         /* --- Map Section --- */
         .map-container {
             position: relative;
@@ -325,7 +382,7 @@
             padding-top: 35%; /* Wider aspect ratio for shorter height */
             border-radius: 8px;
             border: 1px solid #ddd;
-            margin-top: 50px; /* Add space between Location text and map */
+            margin-top: 30px; /* Reduced space since we have location info above */
         }
 
         .map-container iframe {
@@ -512,6 +569,98 @@
             color: #777;
         }
         
+        /* --- Horizontal Wedding Timeline Styles --- */
+        .horizontal-timeline {
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--terracotta);
+            z-index: 1;
+        }
+
+        .timeline-event {
+            flex: 1;
+            position: relative;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--terracotta);
+            border: 3px solid var(--off-white);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(178, 116, 76, 0.3);
+            z-index: 3;
+        }
+
+        .timeline-card {
+            background: var(--off-white);
+            padding: 20px 15px;
+            border-radius: 12px;
+            border-top: 3px solid var(--terracotta);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            width: 200px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--olive);
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timeline-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+            font-family: 'Lato', sans-serif;
+        }
+
         /* --- Responsive Design for Mobile --- */
         @media (max-width: 768px) {
             h1 {
@@ -560,6 +709,12 @@
             .details-grid {
                 grid-template-columns: 1fr;
             }
+
+            .details-grid-two {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
             .detail-item {
                 border-right: none;
                 border-bottom: 1px solid var(--off-white);
@@ -567,8 +722,92 @@
                 margin: 0 auto;
                 width: 80%; /* Makes the bottom border slightly shorter */
             }
+
             .detail-item:last-child {
                 border-bottom: none;
+            }
+
+            .detail-card {
+                width: 200px;
+                height: 120px;
+                margin: 0;
+                padding: 15px;
+                justify-self: center;
+            }
+
+            .detail-card .timeline-time {
+                font-size: 1.1rem;
+            }
+
+            .detail-card .timeline-title {
+                font-size: 1rem;
+            }
+
+            /* Mobile Timeline Adjustments */
+            .horizontal-timeline {
+                padding: 0 10px;
+            }
+
+            .timeline-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .timeline-line {
+                top: auto;
+                left: 75px;
+                right: auto;
+                width: 2px;
+                height: calc(100% - 60px);
+                background: var(--terracotta);
+                transform: translateX(-50%);
+            }
+
+            .timeline-event {
+                flex: none;
+                text-align: center;
+                display: block;
+                margin: 0 auto;
+                width: 200px;
+            }
+
+            .timeline-dot {
+                
+                top: auto;
+                left: -50px;
+                transform: none;
+                flex-shrink: 0;
+                margin-top: 25px;
+            }
+
+            .timeline-card {
+                margin-top: 0;
+                width: 200px;
+                height: 120px;
+                padding: 15px;
+                flex: none;
+                justify-self: center;
+                margin: 0 auto;
+            }
+
+            .timeline-time {
+                font-size: 1.1rem;
+            }
+
+            .timeline-title {
+                font-size: 1rem;
+            }
+
+            .timeline-description {
+                font-size: 0.9rem;
+            }
+
+            /* Mobile submit button - make it less wide */
+            .rsvp-form button[type="submit"] {
+                width: 60%;
+                max-width: 200px;
+                margin: 0 auto;
+                display: block;
             }
         }
 
@@ -617,20 +856,53 @@
         <section id="details">
             <h2>The Details</h2>
             <div class="rule"></div>
-            <div class="details-grid">
-                <div class="detail-item">
-                    <h3>When</h3>
-                    <p>Saturday, 21st February 2026</p>
-                    <p>Ceremony begins at 3:30 PM</p>
+            <div class="details-grid details-grid-two">
+                <div class="detail-item detail-card">
+                    <div class="timeline-time">When</div>
+                    <div class="timeline-title">Saturday, 21st February 2026</div>
                 </div>
-                <div class="detail-item">
-                    <h3>Dress Code</h3>
-                    <p>Semi-Formal</p>
+                <div class="detail-item detail-card">
+                    <div class="timeline-time">Dress Code</div>
+                    <div class="timeline-title">Semi-Formal</div>
                 </div>
-                <div class="detail-item">
-                    <h3>Where</h3>
-                    <p>Natte Valleij Estate</p>
-                    <p>R44, Klapmuts, Stellenbosch</p>
+            </div>
+        </section>
+
+        <!-- Wedding Timeline Section -->
+        <section id="timeline">
+            <h2>Timeline</h2>
+            <div class="rule"></div>
+
+            <div class="horizontal-timeline">
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">15h30</div>
+                            <div class="timeline-title">Arrival</div>
+                            <div class="timeline-description">Start arriving at the venue</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">16h30</div>
+                            <div class="timeline-title">Ceremony</div>
+                            <div class="timeline-description">Wedding ceremony begins</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-time">19h00</div>
+                            <div class="timeline-title">Reception</div>
+                            <div class="timeline-description">Celebration and dinner</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -638,7 +910,11 @@
         <section id="location">
             <h2>Location</h2>
             <div class="rule"></div>
-            
+
+            <div class="location-info">
+                <p>Natte Valleij Estate; R44, Klapmuts, Stellenbosch</p>
+            </div>
+
             <!-- Map Container with Multiple Fallback Options -->
             <!-- Map Container with Multiple Fallback Options -->
             <div class="map-container">
@@ -1026,7 +1302,7 @@
             <h2>Kindly RSVP</h2>
             <div class="rule"></div>
             <p style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
-                Please let us know if you can make it by February 15th, 2026. We can't wait to celebrate with you!
+                Please let us know if you can make it by January 1st, 2026. We can't wait to celebrate with you!
             </p>
             
             <form id="rsvp-form" class="rsvp-form">
@@ -1281,15 +1557,112 @@
             // Add event listener for manual input changes
             document.getElementById('guest-count').addEventListener('input', updateGuestInputs);
             
-            // Initialize EmailJS - DISABLED FOR NOW
-            // (function() {
-            //     emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-            // })();
+            // Initialize EmailJS
+            (function() {
+                emailjs.init("9k76RafRTJGsBDueN"); // Replace with your actual public key
+            })();
+            
+            // EmailJS function to send confirmation email
+            function sendConfirmationEmail(email, guestCount, formData) {
+                return new Promise((resolve, reject) => {
+                    // Prepare guest information for the email
+                    let guestInfo = '';
+                    for (let i = 1; i <= guestCount; i++) {
+                        const guestName = formData.get(`guest-${i}`);
+                        const dietary = formData.get(`dietary-${i}`);
+                        const attending = formData.get(`guest-${i}-attending`);
+                        
+                        if (guestName) {
+                            guestInfo += `• ${guestName}`;
+                            if (attending) guestInfo += ` (${attending})`;
+                            if (dietary) guestInfo += ` - Dietary: ${dietary}`;
+                            guestInfo += '\n';
+                        }
+                    }
+                    
+                    // EmailJS template parameters
+                    const templateParams = {
+                        to_email: email,
+                        to_name: formData.get(`guest-1`).split(' ').map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()).join(' '), // Use guest 1 name with proper capitalization
+                        from_name: 'Megan & Danté',
+                        guest_count: guestCount,
+                        guest_info: guestInfo,
+                        wedding_date: 'February 21st, 2026',
+                        couple_names: 'Megan & Danté',
+                        // Alternative parameter names (try these if to_email doesn't work)
+                        user_email: email,
+                        recipient_email: email,
+                        email_address: email
+                    };
+                    
+                    // Debug: Log the parameters being sent
+                    console.log('EmailJS template parameters:', templateParams);
+                    console.log('Email address being sent:', email);
+                    
+                    // Send email using EmailJS
+                    emailjs.send('service_fii0x6t', 'template_46wtrfb', templateParams)
+                        .then(function(response) {
+                            console.log('Confirmation email sent successfully!', response.status, response.text);
+                            resolve();
+                        })
+                        .catch(function(error) {
+                            console.error('Failed to send confirmation email:', error);
+                            // Don't reject - we still want to show success even if email fails
+                            resolve();
+                        });
+                });
+            }
+            
+            // Check if email has already submitted
+            function hasEmailSubmitted(email) {
+                const submittedEmails = JSON.parse(localStorage.getItem('submittedEmails') || '[]');
+                return submittedEmails.includes(email.toLowerCase());
+            }
+            
+            // Mark email as submitted
+            function markEmailAsSubmitted(email) {
+                const submittedEmails = JSON.parse(localStorage.getItem('submittedEmails') || '[]');
+                if (!submittedEmails.includes(email.toLowerCase())) {
+                    submittedEmails.push(email.toLowerCase());
+                    localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
+                }
+            }
             
             // Handle form submission
             const form = document.getElementById('rsvp-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                // Get email from form
+                const email = document.getElementById('email').value;
+                
+                // Check if email has already submitted
+                if (hasEmailSubmitted(email)) {
+                    // Show error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = `
+                        background-color: #ffebee;
+                        color: #c62828;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin: 20px 0;
+                        text-align: center;
+                        border: 1px solid #ffcdd2;
+                    `;
+                    errorDiv.innerHTML = `
+                        <strong>RSVP Already Submitted</strong><br>
+                        This email address has already submitted an RSVP. 
+                        If you need to make changes, please contact us directly.
+                    `;
+                    
+                    // Insert error message after the form
+                    form.parentNode.insertBefore(errorDiv, form.nextSibling);
+                    
+                    // Scroll to error message
+                    errorDiv.scrollIntoView({ behavior: 'smooth' });
+                    
+                    return; // Stop form submission
+                }
                 
                 // Show loading state
                 const submitBtn = form.querySelector('button[type="submit"]');
@@ -1299,7 +1672,6 @@
                 
                 // Collect form data
                 const formData = new FormData(form);
-                const email = formData.get('email');
                 const guestCount = formData.get('guest-count');
                 
                 // Prepare data for Google Forms
@@ -1388,10 +1760,9 @@
                 })
                 .then(() => {
                     console.log('Google Forms submission successful');
-                    // EmailJS disabled - skipping email sending
                     
-                    // Add a small delay to ensure Google Forms processes the submission
-                    return new Promise(resolve => setTimeout(resolve, 1000));
+                    // Send confirmation email using EmailJS
+                    return sendConfirmationEmail(email, guestCount, formData);
                 })
                 .catch(error => {
                     console.log('Fetch method failed, trying alternative method:', error);
@@ -1417,16 +1788,20 @@
                     document.body.removeChild(hiddenForm);
                     
                     console.log('Alternative form submission method used');
-                    return new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // Send confirmation email using EmailJS
+                    return sendConfirmationEmail(email, guestCount, formData);
                 })
                 .then(() => {
+                    // Mark email as submitted
+                    markEmailAsSubmitted(email);
+                    
                     // Success - show confirmation message
                     form.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 3rem; margin-bottom: 20px;">✅</div>
-                            <h3 style="color: var(--greige); margin-bottom: 15px;">Thank You!</h3>
-                            <p style="color: #666; margin-bottom: 20px;">Your RSVP has been received successfully.</p>
-                            <p style="color: #888; font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
+                            <h3 style="color: var(--off-white); margin-bottom: 15px;">Thank You!</h3>
+                            <p style="color: var(--off-white); margin-bottom: 20px;">Your RSVP has been received successfully.</p>
+                            <p style="color: var(--off-white); font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
                         </div>
                     `;
                 })
