@@ -755,7 +755,7 @@
 
             .timeline-line {
                 top: auto;
-                left: 50%;
+                left: 75px;
                 right: auto;
                 width: 2px;
                 height: calc(100% - 60px);
@@ -765,16 +765,16 @@
 
             .timeline-event {
                 flex: none;
-                text-align: left;
-                display: flex;
-                align-items: flex-start;
-                gap: 20px;
+                text-align: center;
+                display: block;
+                margin: 0 auto;
+                width: 200px;
             }
 
             .timeline-dot {
-                position: static;
+                
                 top: auto;
-                left: auto;
+                left: -50px;
                 transform: none;
                 flex-shrink: 0;
                 margin-top: 25px;
@@ -787,6 +787,7 @@
                 padding: 15px;
                 flex: none;
                 justify-self: center;
+                margin: 0 auto;
             }
 
             .timeline-time {
@@ -799,6 +800,14 @@
 
             .timeline-description {
                 font-size: 0.9rem;
+            }
+
+            /* Mobile submit button - make it less wide */
+            .rsvp-form button[type="submit"] {
+                width: 60%;
+                max-width: 200px;
+                margin: 0 auto;
+                display: block;
             }
         }
 
@@ -1790,9 +1799,9 @@
                     // Success - show confirmation message
                     form.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
-                            <h3 style="color: var(--linen); margin-bottom: 15px;">Thank You!</h3>
-                            <p style="color: var(--linen); margin-bottom: 20px;">Your RSVP has been received successfully.</p>
-                            <p style="color: var(--linen); font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
+                            <h3 style="color: var(--off-white); margin-bottom: 15px;">Thank You!</h3>
+                            <p style="color: var(--off-white); margin-bottom: 20px;">Your RSVP has been received successfully.</p>
+                            <p style="color: var(--off-white); font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
                         </div>
                     `;
                 })
