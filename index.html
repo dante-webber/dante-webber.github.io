@@ -1574,7 +1574,7 @@
                     // EmailJS template parameters
                     const templateParams = {
                         to_email: email,
-                        to_name: formData.get(`guest-1`), // Use guest 1 name
+                        to_name: formData.get(`guest-1`).split(' ').map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()).join(' '), // Use guest 1 name with proper capitalization
                         from_name: 'Megan & Danté',
                         guest_count: guestCount,
                         guest_info: guestInfo,
@@ -1604,10 +1604,56 @@
                 });
             }
             
+            // Check if email has already submitted
+            function hasEmailSubmitted(email) {
+                const submittedEmails = JSON.parse(localStorage.getItem('submittedEmails') || '[]');
+                return submittedEmails.includes(email.toLowerCase());
+            }
+            
+            // Mark email as submitted
+            function markEmailAsSubmitted(email) {
+                const submittedEmails = JSON.parse(localStorage.getItem('submittedEmails') || '[]');
+                if (!submittedEmails.includes(email.toLowerCase())) {
+                    submittedEmails.push(email.toLowerCase());
+                    localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
+                }
+            }
+            
             // Handle form submission
             const form = document.getElementById('rsvp-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                // Get email from form
+                const email = document.getElementById('email').value;
+                
+                // Check if email has already submitted
+                if (hasEmailSubmitted(email)) {
+                    // Show error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = `
+                        background-color: #ffebee;
+                        color: #c62828;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin: 20px 0;
+                        text-align: center;
+                        border: 1px solid #ffcdd2;
+                    `;
+                    errorDiv.innerHTML = `
+                        <strong>RSVP Already Submitted</strong><br>
+                        This email address has already submitted an RSVP. 
+                        If you need to make changes, please contact us directly.
+                    `;
+                    
+                    // Insert error message after the form
+                    form.parentNode.insertBefore(errorDiv, form.nextSibling);
+                    
+                    // Scroll to error message
+                    errorDiv.scrollIntoView({ behavior: 'smooth' });
+                    
+                    return; // Stop form submission
+                }
                 
                 // Show loading state
                 const submitBtn = form.querySelector('button[type="submit"]');
@@ -1617,7 +1663,6 @@
                 
                 // Collect form data
                 const formData = new FormData(form);
-                const email = formData.get('email');
                 const guestCount = formData.get('guest-count');
                 
                 // Prepare data for Google Forms
@@ -1739,13 +1784,15 @@
                     return sendConfirmationEmail(email, guestCount, formData);
                 })
                 .then(() => {
+                    // Mark email as submitted
+                    markEmailAsSubmitted(email);
+                    
                     // Success - show confirmation message
                     form.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 3rem; margin-bottom: 20px;">✅</div>
-                            <h3 style="color: var(--greige); margin-bottom: 15px;">Thank You!</h3>
-                            <p style="color: #666; margin-bottom: 20px;">Your RSVP has been received successfully.</p>
-                            <p style="color: #888; font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
+                            <h3 style="color: var(--linen); margin-bottom: 15px;">Thank You!</h3>
+                            <p style="color: var(--linen); margin-bottom: 20px;">Your RSVP has been received successfully.</p>
+                            <p style="color: var(--linen); font-size: 0.9rem;">We look forward to celebrating with you on February 21st, 2026!</p>
                         </div>
                     `;
                 })
