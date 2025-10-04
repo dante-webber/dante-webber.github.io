@@ -25,8 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- EmailJS SDK - DISABLED FOR NOW -->
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
         html {
@@ -1548,10 +1548,61 @@
             // Add event listener for manual input changes
             document.getElementById('guest-count').addEventListener('input', updateGuestInputs);
             
-            // Initialize EmailJS - DISABLED FOR NOW
-            // (function() {
-            //     emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-            // })();
+            // Initialize EmailJS
+            (function() {
+                emailjs.init("9k76RafRTJGsBDueN"); // Replace with your actual public key
+            })();
+            
+            // EmailJS function to send confirmation email
+            function sendConfirmationEmail(email, guestCount, formData) {
+                return new Promise((resolve, reject) => {
+                    // Prepare guest information for the email
+                    let guestInfo = '';
+                    for (let i = 1; i <= guestCount; i++) {
+                        const guestName = formData.get(`guest-${i}`);
+                        const dietary = formData.get(`dietary-${i}`);
+                        const attending = formData.get(`guest-${i}-attending`);
+                        
+                        if (guestName) {
+                            guestInfo += `• ${guestName}`;
+                            if (attending) guestInfo += ` (${attending})`;
+                            if (dietary) guestInfo += ` - Dietary: ${dietary}`;
+                            guestInfo += '\n';
+                        }
+                    }
+                    
+                    // EmailJS template parameters
+                    const templateParams = {
+                        to_email: email,
+                        to_name: formData.get(`guest-1`), // Use guest 1 name
+                        from_name: 'Megan & Danté',
+                        guest_count: guestCount,
+                        guest_info: guestInfo,
+                        wedding_date: 'February 21st, 2026',
+                        couple_names: 'Megan & Danté',
+                        // Alternative parameter names (try these if to_email doesn't work)
+                        user_email: email,
+                        recipient_email: email,
+                        email_address: email
+                    };
+                    
+                    // Debug: Log the parameters being sent
+                    console.log('EmailJS template parameters:', templateParams);
+                    console.log('Email address being sent:', email);
+                    
+                    // Send email using EmailJS
+                    emailjs.send('service_fii0x6t', 'template_46wtrfb', templateParams)
+                        .then(function(response) {
+                            console.log('Confirmation email sent successfully!', response.status, response.text);
+                            resolve();
+                        })
+                        .catch(function(error) {
+                            console.error('Failed to send confirmation email:', error);
+                            // Don't reject - we still want to show success even if email fails
+                            resolve();
+                        });
+                });
+            }
             
             // Handle form submission
             const form = document.getElementById('rsvp-form');
@@ -1655,10 +1706,9 @@
                 })
                 .then(() => {
                     console.log('Google Forms submission successful');
-                    // EmailJS disabled - skipping email sending
                     
-                    // Add a small delay to ensure Google Forms processes the submission
-                    return new Promise(resolve => setTimeout(resolve, 1000));
+                    // Send confirmation email using EmailJS
+                    return sendConfirmationEmail(email, guestCount, formData);
                 })
                 .catch(error => {
                     console.log('Fetch method failed, trying alternative method:', error);
@@ -1684,7 +1734,9 @@
                     document.body.removeChild(hiddenForm);
                     
                     console.log('Alternative form submission method used');
-                    return new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // Send confirmation email using EmailJS
+                    return sendConfirmationEmail(email, guestCount, formData);
                 })
                 .then(() => {
                     // Success - show confirmation message
