@@ -173,7 +173,7 @@
             top: 110vh;
             left: 0;
             width: 100%;
-            height: calc(100vh - 60vh + 100px); /* Extend to bottom of page with extra padding */
+            height: calc(100vh - 60vh + 200px); /* Extend to bottom of page with extra padding */
             background-color: var(--light-olive);
             border-radius: 0px 300px 0 0;
             z-index: 2;
@@ -286,6 +286,11 @@
 
         section:last-of-type {
             border-bottom: none;
+        }
+
+        /* Hide RSVP section */
+        #rsvp {
+            display: none;
         }
 
         /* --- The Details Section --- */
@@ -559,6 +564,25 @@
         }
 
         .rsvp-form button:hover {
+            background-color: #9a643e; /* Darker terracotta on hover */
+        }
+        
+        /* --- Registry Section --- */
+        .registry-link {
+            display: inline-block;
+            background-color: var(--light-olive);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .registry-link:hover {
             background-color: #9a643e; /* Darker terracotta on hover */
         }
         
@@ -1337,6 +1361,52 @@
             <div class="monogram">
                 <img src="m_and_d_monogram.svg" alt="M & D Monogram">
             </div>
+        </section>
+
+        <section id="registry">
+            <h2>Registry</h2>
+            <div class="rule"></div>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto;">
+                We are so grateful for your presence on our special day and having you there is a gift in itself. Please don't feel any obligation to give us a gift.
+                <br><br>
+                If you would like to give a gift, we have created a registry with items we would love for our home together along with some instructions on how to use it below. 
+                If you would prefer to give a monetary gift, we would be over the moon with a voucher
+                for any of the places on the registry and we have also included EFT details below.
+                <br><br>
+
+                <strong>Registry Instructions</strong>
+                <br><br>
+
+                STEP 1: The registry functions as a wish list for our home. You can purchase
+                the items online via the link provided next to the item, you can also 
+                purchase the item in store, or use the list as inspiration for the style we 
+                are after. 
+
+                <br><br>
+                STEP 2: Once you have purchased the item, please go back to the registry site, click 'Buy Now'
+                and then click 'I Bought This Gift Already' to remove the item from the registry.
+
+                <br><br>
+                STEP 3: Bring along the gift with you to the wedding.
+            </p>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.myregistry.com/wedding-registry/megan-de-villiers-and-dant-webber-cape-town-wc/5254191" target="_blank" class="registry-link">View Our Registry</a>
+            </div>
+
+            <p style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <br><br>
+                <strong>EFT DETAILS</strong>
+                <br><br>
+                Account Name: Megan & Danté Webber
+                <br>
+                Account Number: 1234567890
+                <br>
+                Branch: Standard Bank
+                <br>
+                Branch Code: 123456
+                <br>
+                Reference: Wedding Gift
+            </p>
         </section>
 
         <section id="watch-this-space">
