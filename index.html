@@ -669,6 +669,42 @@
             flex: 1;
             text-align: right;
         }
+
+        /* --- Q&A Section --- */
+        .qa-box {
+            background-color: var(--off-white);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px auto;
+            max-width: 700px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .qa-item {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(178, 119, 76, 0.15);
+        }
+
+        .qa-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .qa-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 12px;
+        }
+
+        .qa-answer {
+            color: #333;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
         
         /* --- Footer --- */
         .footer {
@@ -920,7 +956,8 @@
 
             /* Mobile Registry Section */
             .registry-instructions-box,
-            .eft-details-box {
+            .eft-details-box,
+            .qa-box {
                 padding: 20px;
                 margin: 20px auto;
             }
@@ -928,6 +965,20 @@
             .registry-instructions-box h3,
             .eft-details-box h3 {
                 font-size: 1.3rem;
+            }
+
+            /* Mobile Q&A Section */
+            .qa-question {
+                font-size: 1.1rem;
+            }
+
+            .qa-answer {
+                font-size: 0.95rem;
+            }
+
+            .qa-item {
+                margin-bottom: 25px;
+                padding-bottom: 20px;
             }
 
             .registry-step {
@@ -1553,6 +1604,48 @@
                 <div class="eft-detail-row">
                     <span class="eft-detail-label">Reference:</span>
                     <span class="eft-detail-value">Wedding Gift</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="rule"></div>
+            
+            <div class="qa-box">
+                <div class="qa-item">
+                    <div class="qa-question">Can I bring a plus-one?</div>
+                    <div class="qa-answer">Unfortunately not. Due to numbers, catering + costs, we are unable to accommodate everybody's partners.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">Where can I park?</div>
+                    <div class="qa-answer">There is a big field at the venue designated for parking. There will be signs on the day to show you where to go, as well as a car guard.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">Is there a colour scheme for the guests?</div>
+                    <div class="qa-answer">No, there is no colour scheme for the guests. You may wear any colour or pattern.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">What time should I be seated?</div>
+                    <div class="qa-answer">Please be seated by 16h20, so we can start the ceremony at 16h30.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">What will the weather be like?</div>
+                    <div class="qa-answer">Stellenbosch in February can be quite hot. However, the reception will be outside in the evening, so you may need a warm top. The ceremony will be inside, and the canapes + reception will be outside in the garden.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">What is the dress code?</div>
+                    <div class="qa-answer">Semi-formal to formal. Think dresses for the ladies, and chinos with a smart shirt or even a suit for the men.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question">Is it okay to take pictures with our phones and cameras during the wedding?</div>
+                    <div class="qa-answer">Yes! We would love for you take photos & videos and share them with us. However, please refrain from taking photos during the ceremony.</div>
                 </div>
             </div>
         </section>
