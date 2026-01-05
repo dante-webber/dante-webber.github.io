@@ -931,8 +931,19 @@
             }
 
             .registry-step {
-                padding-left: 25px;
+                padding-left: 0;
+                padding-top: 40px;
+                text-align: center;
                 font-size: 0.95rem;
+            }
+
+            .registry-step::before {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0;
+                width: auto;
+                text-align: center;
             }
 
             .eft-detail-row {
