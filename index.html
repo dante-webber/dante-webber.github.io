@@ -173,7 +173,7 @@
             top: 110vh;
             left: 0;
             width: 100%;
-            height: calc(100vh - 60vh + 100px); /* Extend to bottom of page with extra padding */
+            height: calc(100vh - 60vh + 200px); /* Extend to bottom of page with extra padding */
             background-color: var(--light-olive);
             border-radius: 0px 300px 0 0;
             z-index: 2;
@@ -286,6 +286,11 @@
 
         section:last-of-type {
             border-bottom: none;
+        }
+
+        /* Hide RSVP section */
+        #rsvp {
+            display: none;
         }
 
         /* --- The Details Section --- */
@@ -562,6 +567,109 @@
             background-color: #9a643e; /* Darker terracotta on hover */
         }
         
+        /* --- Registry Section --- */
+        .registry-link {
+            display: inline-block;
+            background-color: var(--light-olive);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .registry-link:hover {
+            background-color: #9a643e; /* Darker terracotta on hover */
+        }
+
+        .registry-instructions-box {
+            background-color: var(--off-white);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .registry-instructions-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .registry-step {
+            margin-bottom: 20px;
+            padding-left: 100px;
+            position: relative;
+            color: #333 !important;
+            line-height: 1.6;
+            display: block;
+            font-size: 1rem;
+        }
+
+        .registry-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .registry-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 700;
+            color: var(--terracotta);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            width: 90px;
+            display: inline-block;
+        }
+
+        .eft-details-box {
+            background-color: var(--off-white);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px auto;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .eft-details-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .eft-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(178, 119, 76, 0.1);
+        }
+
+        .eft-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .eft-detail-label {
+            font-weight: 600;
+            color: var(--olive);
+            flex: 0 0 40%;
+        }
+
+        .eft-detail-value {
+            color: #333;
+            flex: 1;
+            text-align: right;
+        }
+        
         /* --- Footer --- */
         .footer {
             text-align: center;
@@ -808,6 +916,47 @@
                 max-width: 200px;
                 margin: 0 auto;
                 display: block;
+            }
+
+            /* Mobile Registry Section */
+            .registry-instructions-box,
+            .eft-details-box {
+                padding: 20px;
+                margin: 20px auto;
+            }
+
+            .registry-instructions-box h3,
+            .eft-details-box h3 {
+                font-size: 1.3rem;
+            }
+
+            .registry-step {
+                padding-left: 0;
+                padding-top: 40px;
+                text-align: center;
+                font-size: 0.95rem;
+            }
+
+            .registry-step::before {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0;
+                width: auto;
+                text-align: center;
+            }
+
+            .eft-detail-row {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            .eft-detail-label {
+                margin-bottom: 5px;
+            }
+
+            .eft-detail-value {
+                text-align: left;
             }
         }
 
@@ -1336,6 +1485,71 @@
             
             <div class="monogram">
                 <img src="m_and_d_monogram.svg" alt="M & D Monogram">
+            </div>
+        </section>
+
+        <section id="registry">
+            <h2>Registry</h2>
+            <div class="rule"></div>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+                We are so grateful for your presence on our special day and having you there is a gift in itself. Please don't feel any obligation to give us a gift.
+            </p>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+                If you would like to give a gift, we have created a registry with items we would love for our home together along with some instructions on how to use it below. 
+                If you would prefer to give a monetary gift, we would be over the moon with a voucher
+                for any of the places on the registry and we have also included EFT details below.
+            </p>
+
+            <br>
+
+
+            <div class="registry-instructions-box">
+                <h3>Registry Instructions</h3>
+                <div class="registry-step" data-step="STEP 1:">
+                    The registry functions as a wish list for our home. You can purchase
+                    the items online via the link provided next to the item, you can also 
+                    purchase the item in store, or use the list as inspiration for the style we 
+                    are after.
+                </div>
+                <div class="registry-step" data-step="STEP 2:">
+                    Once you have purchased the item, please go back to the registry site, click 'Buy Now'
+                    and then click 'I Bought This Gift Already' to remove the item from the registry.
+                </div>
+                <div class="registry-step" data-step="STEP 3:">
+                    Bring along the gift with you to the wedding. 
+                    <br><br>
+                    <strong> PLEASE NOTE - </strong> if you are buying it 
+                    online, you will unfortunately have to cover the costs of shipping the gift 
+                    to you and then bring it along to the wedding.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://www.myregistry.com/wedding-registry/megan-de-villiers-and-dant-webber-cape-town-wc/5254191" target="_blank" class="registry-link">View Our Registry</a>
+            </div>
+
+            <div class="eft-details-box">
+                <h3>EFT Details</h3>
+                <div class="eft-detail-row">
+                    <span class="eft-detail-label">Account Name:</span>
+                    <span class="eft-detail-value">Megan & Danté Webber</span>
+                </div>
+                <div class="eft-detail-row">
+                    <span class="eft-detail-label">Account Number:</span>
+                    <span class="eft-detail-value">1234567890</span>
+                </div>
+                <div class="eft-detail-row">
+                    <span class="eft-detail-label">Branch:</span>
+                    <span class="eft-detail-value">Standard Bank</span>
+                </div>
+                <div class="eft-detail-row">
+                    <span class="eft-detail-label">Branch Code:</span>
+                    <span class="eft-detail-value">123456</span>
+                </div>
+                <div class="eft-detail-row">
+                    <span class="eft-detail-label">Reference:</span>
+                    <span class="eft-detail-value">Wedding Gift</span>
+                </div>
             </div>
         </section>
 
