@@ -608,7 +608,7 @@
             <input type="text" class="upload-name-input" id="uploader-name" placeholder="Your name (optional)">
             <div class="dropzone" id="dropzone" onclick="document.getElementById('file-input').click()">
                 <div class="dropzone-icon">+</div>
-                <div class="dropzone-text"><strong>Click to browse</strong> or drag files here<br>Photos & videos up to 50MB each</div>
+                <div class="dropzone-text"><strong>Click to browse</strong> or drag files here<br>Photos & videos up to 35MB each</div>
             </div>
             <input type="file" class="file-input" id="file-input" multiple accept="image/*,video/*">
             <div class="upload-preview-list" id="upload-previews"></div>
@@ -616,6 +616,13 @@
             <div class="upload-progress" id="upload-progress">
                 <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
                 <div class="upload-status" id="upload-status">Uploading...</div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center;">
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 10px;">Have photos or videos larger than 35MB? Upload them directly to the shared folder.</p>
+                <a href="https://drive.google.com/drive/folders/1NQZWPW2Qv1UaUbwNR6dnB6SbaxcLBiVV?usp=sharing" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Open Google Drive Folder
+                </a>
             </div>
         </div>
     </div>
@@ -634,6 +641,9 @@
 
         // Google Apps Script Web App URL (for uploading)
         UPLOAD_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyUAeD1bz2nY9sdqLNdjhknnHCRmKpS2bOeY8EEiH7opAz7F_Ken0JiiL6mOCgfmgol/exec',
+
+        // Hero photo file ID (set to a specific Google Drive file ID, or leave blank to use the first photo)
+        HERO_PHOTO_ID: '1BHeVHCb-xAIWnCFq3d-z8kr9-YyuZwct',
     };
 
     // ═══════════════════════════════════════════
@@ -680,7 +690,7 @@
                 const url = `https://www.googleapis.com/drive/v3/files?` +
                     `q='${folderId}'+in+parents+and+trashed=false` +
                     `&fields=nextPageToken,files(id,name,mimeType,thumbnailLink,createdTime,imageMediaMetadata,videoMediaMetadata)` +
-                    `&orderBy=createdTime+desc` +
+                    `&orderBy=name` +
                     `&pageSize=100` +
                     `&key=${CONFIG.API_KEY}` +
                     (pageToken ? `&pageToken=${pageToken}` : '');
@@ -697,6 +707,9 @@
             const mediaFiles = allFiles.filter(f =>
                 f.mimeType.startsWith('image/') || f.mimeType.startsWith('video/')
             );
+
+            // Natural sort by filename (handles numeric parts like date(1).JPG, date(2).JPG, date(10).JPG)
+            mediaFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
 
             loadingEl.style.display = 'none';
 
@@ -726,13 +739,18 @@
                 sharedPhotos = items;
             }
 
-            // Set hero photo (first/most recent)
-            if (items.length > 0 && !items[0].isVideo) {
+            // Set hero photo (configurable via HERO_PHOTO_ID, or falls back to first photo)
+            let heroIndex = 0;
+            if (type === 'professional' && CONFIG.HERO_PHOTO_ID) {
+                const idx = items.findIndex(item => item.id === CONFIG.HERO_PHOTO_ID);
+                if (idx !== -1) heroIndex = idx;
+            }
+            if (items.length > 0 && !items[heroIndex].isVideo) {
                 const heroImg = document.createElement('img');
-                heroImg.src = `https://drive.google.com/thumbnail?id=${items[0].id}&sz=w1600`;
-                heroImg.alt = items[0].name;
+                heroImg.src = `https://drive.google.com/thumbnail?id=${items[heroIndex].id}&sz=w1600`;
+                heroImg.alt = items[heroIndex].name;
                 heroImg.loading = 'eager';
-                heroImg.onclick = () => openLightbox(items, 0);
+                heroImg.onclick = () => openLightbox(items, heroIndex);
                 heroEl.appendChild(heroImg);
             }
 
@@ -927,8 +945,8 @@
 
     function handleFiles(fileList) {
         for (const file of fileList) {
-            if (file.size > 50 * 1024 * 1024) {
-                alert(`${file.name} is too large (max 50MB).`);
+            if (file.size > 35 * 1024 * 1024) {
+                alert(`${file.name} is too large (max 35MB). For larger files, upload directly to the shared Google Drive folder.`);
                 continue;
             }
             if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
@@ -993,9 +1011,9 @@
 
             try {
                 const base64 = await fileToBase64(file);
+                // Use text/plain to avoid CORS preflight (Apps Script doesn't handle OPTIONS)
                 const response = await fetch(CONFIG.UPLOAD_SCRIPT_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         fileName: file.name,
                         mimeType: file.type,
@@ -1004,7 +1022,9 @@
                     }),
                 });
 
-                if (!response.ok) throw new Error('Upload failed');
+                // Apps Script redirects, so check the response body for success
+                const result = await response.json().catch(() => null);
+                if (result && result.success === false) throw new Error(result.error || 'Upload failed');
             } catch (err) {
                 console.error(`Failed to upload ${file.name}:`, err);
                 statusEl.textContent = `Failed to upload ${file.name}. Continuing...`;
