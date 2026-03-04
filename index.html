@@ -306,6 +306,7 @@
             background: var(--accent);
             color: #fff;
             border: none;
+            text-decoration: none;
             padding: 12px 24px;
             border-radius: var(--radius);
             font-family: var(--sans);
@@ -317,164 +318,6 @@
         }
         .upload-btn:hover { background: var(--accent-hover); }
         .upload-btn svg { width: 18px; height: 18px; }
-
-        /* ── Upload Modal ── */
-        .upload-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 10001;
-            background: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-        }
-        .upload-modal.open { display: flex; }
-        .upload-modal-content {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 36px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-        }
-        .upload-modal-content h3 {
-            font-family: var(--serif);
-            font-weight: 400;
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-        .upload-modal-content p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 24px;
-        }
-        .upload-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-        .dropzone {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius);
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
-            margin-bottom: 16px;
-        }
-        .dropzone:hover, .dropzone.dragover {
-            border-color: var(--accent);
-            background: #f5f5f5;
-        }
-        .dropzone-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-        .dropzone-text {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-        .dropzone-text strong {
-            color: var(--text);
-        }
-        .file-input { display: none; }
-        .upload-name-input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-        .upload-name-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .upload-preview-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-            max-height: 120px;
-            overflow-y: auto;
-        }
-        .upload-preview-item {
-            width: 60px;
-            height: 60px;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-        .upload-preview-item img,
-        .upload-preview-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .upload-preview-item .remove-file {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            border: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            font-size: 0.65rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .submit-upload {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius);
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .submit-upload:hover { background: var(--accent-hover); }
-        .submit-upload:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .upload-progress {
-            margin-top: 12px;
-            display: none;
-        }
-        .upload-progress.active { display: block; }
-        .progress-bar {
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s;
-        }
-        .upload-status {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 6px;
-        }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
@@ -561,13 +404,13 @@
     <!-- Shared Photos Tab -->
     <div id="tab-shared" class="tab-content">
         <div class="upload-area">
-            <button class="upload-btn" onclick="openUploadModal()">
+            <a class="upload-btn" href="https://drive.google.com/drive/folders/1NQZWPW2Qv1UaUbwNR6dnB6SbaxcLBiVV?usp=sharing" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
                 Add Photos & Videos
-            </button>
+            </a>
         </div>
         <div id="shared-hero" class="hero-photo"></div>
         <section class="gallery-section">
@@ -599,33 +442,6 @@
         <button class="lightbox-fullscreen" onclick="toggleFullscreen()">Fullscreen</button>
     </div>
 
-    <!-- Upload Modal -->
-    <div class="upload-modal" id="upload-modal">
-        <div class="upload-modal-content">
-            <button class="upload-close" onclick="closeUploadModal()">&times;</button>
-            <h3>Share Your Moments</h3>
-            <p>Upload photos and videos from the celebration. They'll appear in the shared gallery for everyone to enjoy.</p>
-            <input type="text" class="upload-name-input" id="uploader-name" placeholder="Your name (optional)">
-            <div class="dropzone" id="dropzone" onclick="document.getElementById('file-input').click()">
-                <div class="dropzone-icon">+</div>
-                <div class="dropzone-text"><strong>Click to browse</strong> or drag files here<br>Photos & videos up to 35MB each</div>
-            </div>
-            <input type="file" class="file-input" id="file-input" multiple accept="image/*,video/*">
-            <div class="upload-preview-list" id="upload-previews"></div>
-            <button class="submit-upload" id="submit-upload" onclick="submitUpload()" disabled>Upload</button>
-            <div class="upload-progress" id="upload-progress">
-                <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
-                <div class="upload-status" id="upload-status">Uploading...</div>
-            </div>
-            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center;">
-                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 10px;">Have photos or videos larger than 35MB? Upload them directly to the shared folder.</p>
-                <a href="https://drive.google.com/drive/folders/1NQZWPW2Qv1UaUbwNR6dnB6SbaxcLBiVV?usp=sharing" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    Open Google Drive Folder
-                </a>
-            </div>
-        </div>
-    </div>
 
     <script>
     // ═══════════════════════════════════════════
@@ -639,9 +455,6 @@
         PROFESSIONAL_FOLDER_ID: '15aqu89nxOZix1qVKv3ldfI-PU52epgRD',
         SHARED_FOLDER_ID: '1NQZWPW2Qv1UaUbwNR6dnB6SbaxcLBiVV',
 
-        // Google Apps Script Web App URL (for uploading)
-        UPLOAD_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyUAeD1bz2nY9sdqLNdjhknnHCRmKpS2bOeY8EEiH7opAz7F_Ken0JiiL6mOCgfmgol/exec',
-
         // Hero photo file ID (set to a specific Google Drive file ID, or leave blank to use the first photo)
         HERO_PHOTO_ID: '1BHeVHCb-xAIWnCFq3d-z8kr9-YyuZwct',
     };
@@ -652,7 +465,6 @@
     let proPhotos = [];
     let sharedPhotos = [];
     let currentLightbox = { items: [], index: 0 };
-    let uploadFiles = [];
     let sharedLoaded = false;
 
     // ═══════════════════════════════════════════
@@ -911,167 +723,6 @@
             }
         }, { passive: true });
     })();
-
-    // ═══════════════════════════════════════════
-    // UPLOAD
-    // ═══════════════════════════════════════════
-    function openUploadModal() {
-        document.getElementById('upload-modal').classList.add('open');
-    }
-
-    function closeUploadModal() {
-        document.getElementById('upload-modal').classList.remove('open');
-        resetUploadForm();
-    }
-
-    function resetUploadForm() {
-        uploadFiles = [];
-        document.getElementById('upload-previews').innerHTML = '';
-        document.getElementById('file-input').value = '';
-        document.getElementById('submit-upload').disabled = true;
-        document.getElementById('upload-progress').classList.remove('active');
-        document.getElementById('progress-fill').style.width = '0%';
-    }
-
-    // Drag & drop
-    const dropzone = document.getElementById('dropzone');
-    dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('dragover');
-    });
-    dropzone.addEventListener('dragleave', () => {
-        dropzone.classList.remove('dragover');
-    });
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        handleFiles(e.dataTransfer.files);
-    });
-
-    document.getElementById('file-input').addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-    });
-
-    function handleFiles(fileList) {
-        for (const file of fileList) {
-            if (file.size > 35 * 1024 * 1024) {
-                alert(`${file.name} is too large (max 35MB). For larger files, upload directly to the shared Google Drive folder.`);
-                continue;
-            }
-            if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
-                alert(`${file.name} is not a supported file type.`);
-                continue;
-            }
-            uploadFiles.push(file);
-        }
-        renderPreviews();
-        document.getElementById('submit-upload').disabled = uploadFiles.length === 0;
-    }
-
-    function renderPreviews() {
-        const container = document.getElementById('upload-previews');
-        container.innerHTML = '';
-        uploadFiles.forEach((file, i) => {
-            const div = document.createElement('div');
-            div.className = 'upload-preview-item';
-
-            if (file.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                div.appendChild(img);
-            } else {
-                const vid = document.createElement('video');
-                vid.src = URL.createObjectURL(file);
-                vid.muted = true;
-                div.appendChild(vid);
-            }
-
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-file';
-            removeBtn.textContent = '×';
-            removeBtn.onclick = (e) => {
-                e.stopPropagation();
-                uploadFiles.splice(i, 1);
-                renderPreviews();
-                document.getElementById('submit-upload').disabled = uploadFiles.length === 0;
-            };
-            div.appendChild(removeBtn);
-            container.appendChild(div);
-        });
-    }
-
-    async function submitUpload() {
-        if (uploadFiles.length === 0) return;
-
-        const submitBtn = document.getElementById('submit-upload');
-        const progressEl = document.getElementById('upload-progress');
-        const fillEl = document.getElementById('progress-fill');
-        const statusEl = document.getElementById('upload-status');
-        const uploaderName = document.getElementById('uploader-name').value.trim();
-
-        submitBtn.disabled = true;
-        progressEl.classList.add('active');
-
-        let uploaded = 0;
-        const total = uploadFiles.length;
-
-        for (const file of uploadFiles) {
-            statusEl.textContent = `Uploading ${uploaded + 1} of ${total}: ${file.name}`;
-
-            try {
-                const base64 = await fileToBase64(file);
-                // Apps Script redirects POST->GET (302), losing the body.
-                // mode: 'no-cors' ensures the POST reaches the script intact.
-                // Trade-off: we can't read the response, but the upload works.
-                await fetch(CONFIG.UPLOAD_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({
-                        fileName: file.name,
-                        mimeType: file.type,
-                        data: base64,
-                        uploaderName: uploaderName || 'Anonymous',
-                    }),
-                });
-            } catch (err) {
-                console.error(`Failed to upload ${file.name}:`, err);
-                statusEl.textContent = `Failed to upload ${file.name}. Continuing...`;
-                await new Promise(r => setTimeout(r, 1500));
-            }
-
-            uploaded++;
-            fillEl.style.width = `${(uploaded / total) * 100}%`;
-        }
-
-        statusEl.textContent = `Done! ${uploaded} file(s) uploaded.`;
-        fillEl.style.width = '100%';
-
-        // Reload shared gallery after short delay
-        setTimeout(() => {
-            closeUploadModal();
-            // Clear and reload shared photos
-            document.getElementById('shared-gallery').innerHTML = '';
-            document.getElementById('shared-hero').innerHTML = '';
-            const emptyEl = document.getElementById('shared-empty');
-            if (emptyEl) emptyEl.style.display = 'none';
-            document.getElementById('shared-loading').style.display = 'block';
-            loadFolder('shared');
-        }, 2000);
-    }
-
-    function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result.split(',')[1]);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
-    }
-
-    // Close upload modal on backdrop click
-    document.getElementById('upload-modal').addEventListener('click', (e) => {
-        if (e.target.classList.contains('upload-modal')) closeUploadModal();
-    });
 
     // ═══════════════════════════════════════════
     // INIT
