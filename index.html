@@ -750,8 +750,17 @@
                 heroImg.src = `https://drive.google.com/thumbnail?id=${items[heroIndex].id}&sz=w1600`;
                 heroImg.alt = items[heroIndex].name;
                 heroImg.loading = 'eager';
+                heroImg.fetchPriority = 'high';
                 heroImg.onclick = () => openLightbox(items, heroIndex);
                 heroEl.appendChild(heroImg);
+
+                // Wait for hero to load before showing the gallery grid
+                await new Promise(resolve => {
+                    heroImg.onload = resolve;
+                    heroImg.onerror = resolve;
+                    // Fallback timeout in case load event doesn't fire
+                    setTimeout(resolve, 4000);
+                });
             }
 
             // Build gallery grid
@@ -1011,9 +1020,12 @@
 
             try {
                 const base64 = await fileToBase64(file);
-                // Use text/plain to avoid CORS preflight (Apps Script doesn't handle OPTIONS)
-                const response = await fetch(CONFIG.UPLOAD_SCRIPT_URL, {
+                // Apps Script redirects POST->GET (302), losing the body.
+                // mode: 'no-cors' ensures the POST reaches the script intact.
+                // Trade-off: we can't read the response, but the upload works.
+                await fetch(CONFIG.UPLOAD_SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     body: JSON.stringify({
                         fileName: file.name,
                         mimeType: file.type,
@@ -1021,10 +1033,6 @@
                         uploaderName: uploaderName || 'Anonymous',
                     }),
                 });
-
-                // Apps Script redirects, so check the response body for success
-                const result = await response.json().catch(() => null);
-                if (result && result.success === false) throw new Error(result.error || 'Upload failed');
             } catch (err) {
                 console.error(`Failed to upload ${file.name}:`, err);
                 statusEl.textContent = `Failed to upload ${file.name}. Continuing...`;
